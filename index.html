@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twicy — Learn English with what you say</title>
+<meta name="description" content="Your Apple Watch hears what you say all day. Twicy turns your own sentences into English you can say out loud — for IELTS and TOEFL speaking, and for your next trip abroad.">
+<meta property="og:title" content="Twicy — The best speaking textbook? You already wrote it.">
+<meta property="og:description" content="Your Apple Watch hears what you say all day. Twicy teaches you to say it in English.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+KR:wght@400;500&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#f5f5f5; --surface:#fff; --ink:#000; --on-ink:#fff;
+  --text:#111; --muted:#6e6e73; --faint:#a1a1a6; --line:#e5e5e7;
+  --ring-a:#000; --ring-b:#a8a8a8; --track:#e6e6e6;
+  --radius:28px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --page:#000; --surface:#1c1c1e; --ink:#fff; --on-ink:#000;
+    --text:#f5f5f7; --muted:#98989d; --faint:#636366; --line:#2c2c2e;
+    --ring-a:#fff; --ring-b:#757575; --track:#2b2b2b;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--page);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans JP","Noto Sans KR","Noto Sans TC",system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+section{padding:96px 0}
+@media (max-width:640px){section{padding:64px 0}}
+h1,h2,h3{letter-spacing:-.025em;line-height:1.08;font-weight:700}
+h1{font-size:clamp(40px,8vw,76px);letter-spacing:-.04em}
+h2{font-size:clamp(30px,5vw,48px);letter-spacing:-.035em}
+h3{font-size:20px;letter-spacing:-.015em}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lead{font-size:clamp(18px,2.4vw,22px);color:var(--muted);max-width:640px}
+.muted{color:var(--muted)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);background:color-mix(in srgb,var(--page) 78%,transparent);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.03em;text-decoration:none}
+.brand svg{width:26px;height:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--on-ink);text-decoration:none;font-weight:600;border-radius:999px;padding:14px 26px;font-size:17px}
+.btn.small{padding:8px 16px;font-size:14px}
+.btn svg{width:18px;height:18px;fill:currentColor}
+
+/* hero */
+.hero{padding:88px 0 72px;text-align:center}
+.hero .mark{width:120px;height:120px;margin:0 auto 40px}
+.hero h1 span{display:block;color:var(--muted)}
+.hero .lead{margin:24px auto 36px}
+.hero .note{margin-top:14px;font-size:14px;color:var(--faint)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.card{background:var(--surface);border-radius:var(--radius);padding:32px}
+.step .num{font-size:14px;font-weight:600;color:var(--faint);margin-bottom:28px;display:block}
+.step p{color:var(--muted);margin-top:10px}
+
+/* for whom */
+.who{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
+@media (max-width:820px){.who{grid-template-columns:1fr}}
+.who .card{padding:40px}
+.who h3{font-size:28px;letter-spacing:-.03em}
+.who p{color:var(--muted);margin-top:14px;font-size:17px}
+.who .q{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:15px}
+.who .q div{padding:4px 0}
+.who .q b{font-weight:600}
+
+/* day */
+.tabs{display:flex;gap:8px;margin:36px 0 24px;flex-wrap:wrap}
+.tabs button{font:inherit;font-size:15px;font-weight:500;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:8px 18px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.day{display:none;grid-template-columns:repeat(2,1fr);gap:16px}
+.day.on{display:grid}
+@media (max-width:820px){.day{grid-template-columns:1fr}}
+.moment{background:var(--surface);border-radius:22px;padding:24px 26px}
+.moment .time{font-size:13px;font-weight:600;color:var(--faint);font-variant-numeric:tabular-nums}
+.moment .said{font-size:17px;margin-top:10px;color:var(--muted)}
+.moment .en{font-size:21px;font-weight:600;letter-spacing:-.015em;margin-top:6px}
+.moment .tag{font-size:12px;color:var(--faint);margin-top:12px}
+
+/* privacy */
+.privacy{text-align:center}
+.privacy h2{font-size:clamp(34px,6vw,60px)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;text-align:left}
+@media (max-width:820px){.facts{grid-template-columns:1fr}}
+.facts p{color:var(--muted);margin-top:8px}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+@media (max-width:820px){.nums{grid-template-columns:1fr 1fr}}
+.num-card{background:var(--surface);border-radius:var(--radius);padding:28px}
+.num-card .big{font-size:clamp(34px,5vw,48px);font-weight:700;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.num-card p{color:var(--muted);font-size:15px;margin-top:6px}
+
+/* price */
+.price{text-align:center}
+.price .card{max-width:520px;margin:40px auto 0;padding:48px 32px}
+.price .now{font-size:72px;font-weight:800;letter-spacing:-.05em;line-height:1}
+.price .was{color:var(--muted);margin-top:10px}
+.price .was s{color:var(--faint)}
+.price .pill{display:inline-block;margin-top:18px;font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.price .once{margin:18px 0 30px;color:var(--muted)}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:22px 0}
+details:first-of-type{border-top:1px solid var(--line);margin-top:40px}
+summary{cursor:pointer;font-size:18px;font-weight:600;letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--faint);font-weight:400}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin-top:12px;max-width:720px}
+
+footer{padding:48px 0 64px;color:var(--faint);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none;color:var(--muted)}
+footer a+a{margin-left:18px}
+
+[lang=ja]{font-family:"Noto Sans JP",system-ui,sans-serif}
+[lang=ko]{font-family:"Noto Sans KR",system-ui,sans-serif}
+[lang=zh-Hant-TW]{font-family:"Noto Sans TC",system-ui,sans-serif}
+</style>
+</head>
+<body>
+
+<!-- Logo is being redesigned: two concentric rings stand in for the mark. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="42" fill="none" stroke="var(--track)" stroke-width="10"/>
+    <circle cx="50" cy="50" r="42" fill="none" stroke="var(--ring-a)" stroke-width="10" stroke-linecap="round" stroke-dasharray="210 264" transform="rotate(-90 50 50)"/>
+    <circle cx="50" cy="50" r="26" fill="none" stroke="var(--track)" stroke-width="10"/>
+    <circle cx="50" cy="50" r="26" fill="none" stroke="var(--ring-b)" stroke-width="10" stroke-linecap="round" stroke-dasharray="110 164" transform="rotate(-90 50 50)"/>
+  </symbol>
+  <symbol id="apple" viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></symbol>
+</svg>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><svg><use href="#mark"/></svg>Twicy</a>
+    <!-- launch: href="{{APP_STORE_URL}}?ct=site_nav", text "Get Twicy" -->
+    <a class="btn small" href="#price">Coming soon</a>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <svg class="mark"><use href="#mark"/></svg>
+  <h1>The best speaking textbook?<span>You already wrote it.</span></h1>
+  <p class="lead">Your Apple Watch hears what you say all day. Each evening, Twicy picks the sentences you'll say most often and teaches you to say them in English — out loud.</p>
+  <!-- launch: href="{{APP_STORE_URL}}?ct=site_hero", text "Download on the App Store" -->
+  <a class="btn" href="#price"><svg><use href="#apple"/></svg>Coming soon to the App Store</a>
+  <p class="note">iPhone + Apple Watch · $9.99 launch week · No subscription</p>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Talk like you always do.<br>Learn it in English tonight.</h2>
+    <div class="steps">
+      <div class="card step">
+        <span class="num">01 · Apple Watch</span>
+        <h3>It listens.</h3>
+        <p>Wear your watch and live your day. Twicy keeps only the parts where someone is speaking — and with Voice ID on, only the parts that are you.</p>
+      </div>
+      <div class="card step">
+        <span class="num">02 · iPhone</span>
+        <h3>It learns your day.</h3>
+        <p>Your iPhone transcribes on device, cleans up what you said, and picks the sentences you'll need again. Each one becomes a card: what you said, and how a native speaker would say it.</p>
+      </div>
+      <div class="card step">
+        <span class="num">03 · You</span>
+        <h3>You say it.</h3>
+        <p>Look at your own sentence, say it in English. Twicy listens, checks every word, and schedules the next review so it sticks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap">
+    <p class="eyebrow">Made for</p>
+    <h2>The moments you have to speak.</h2>
+    <div class="who">
+      <div class="card">
+        <h3>IELTS &amp; TOEFL speaking</h3>
+        <p>The speaking test asks about <em>you</em> — your hometown, your work, your weekend. Memorized model answers sound memorized. Your own sentences don't.</p>
+        <div class="q">
+          <div><b>“Do you work or study?”</b> <span class="muted">— you answered that at lunch.</span></div>
+          <div><b>“Describe a place you like to visit.”</b> <span class="muted">— you talked about it on Sunday.</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Your next trip abroad</h3>
+        <p>Ordering, asking the way, “sorry, I'm running late.” The things you'll need to say abroad are the things you already say every day — in your own language.</p>
+        <div class="q">
+          <div><b>“Could I get this without ice?”</b></div>
+          <div><b>“Is it okay if I sit here?”</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="day">
+  <div class="wrap">
+    <p class="eyebrow">A day with Twicy</p>
+    <h2>What you said → in English.</h2>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-day="ja">日本語</button>
+      <button role="tab" aria-selected="false" data-day="ko">한국어</button>
+      <button role="tab" aria-selected="false" data-day="tw">繁體中文</button>
+    </div>
+
+    <div class="day on" id="day-ja">
+      <div class="moment"><div class="time">08:10 · Commute</div><div class="said" lang="ja">今日ちょっと遅れるかも、電車止まってる。</div><div class="en">I might be a little late — the trains stopped.</div></div>
+      <div class="moment"><div class="time">12:20 · Lunch</div><div class="said" lang="ja">これ、辛くないやつにできますか？</div><div class="en">Can I get this one not spicy?</div><div class="tag">Useful when traveling</div></div>
+      <div class="moment"><div class="time">15:00 · Work</div><div class="said" lang="ja">その件、確認してからまた連絡します。</div><div class="en">Let me check and get back to you on that.</div></div>
+      <div class="moment"><div class="time">21:30 · Friends</div><div class="said" lang="ja">週末は家でゴロゴロしてることが多いかな。</div><div class="en">I mostly just chill at home on weekends.</div><div class="tag">IELTS Part 1 · Free time</div></div>
+    </div>
+
+    <div class="day" id="day-ko">
+      <div class="moment"><div class="time">08:30 · Café</div><div class="said" lang="ko">아이스 아메리카노 하나, 연하게 주세요.</div><div class="en">One iced Americano, a little weaker, please.</div><div class="tag">Useful when traveling</div></div>
+      <div class="moment"><div class="time">11:00 · Work</div><div class="said" lang="ko">이거 내일까지 끝내기는 좀 어려울 것 같아요.</div><div class="en">I don't think I can finish this by tomorrow.</div></div>
+      <div class="moment"><div class="time">13:10 · Lunch</div><div class="said" lang="ko">우리 동네는 조용해서 살기 좋아요.</div><div class="en">My neighborhood's quiet, so it's a nice place to live.</div><div class="tag">IELTS Part 1 · Hometown</div></div>
+      <div class="moment"><div class="time">22:00 · Home</div><div class="said" lang="ko">오늘 진짜 피곤하다, 일찍 자야겠어.</div><div class="en">I'm so tired today. I should sleep early.</div></div>
+    </div>
+
+    <div class="day" id="day-tw">
+      <div class="moment"><div class="time">09:00 · Office</div><div class="said" lang="zh-Hant-TW">我等一下要開會，晚點再回你。</div><div class="en">I've got a meeting in a bit — I'll get back to you later.</div></div>
+      <div class="moment"><div class="time">12:30 · Lunch</div><div class="said" lang="zh-Hant-TW">這個可以幫我外帶嗎？</div><div class="en">Could I get this to go?</div><div class="tag">Useful when traveling</div></div>
+      <div class="moment"><div class="time">18:40 · MRT</div><div class="said" lang="zh-Hant-TW">不好意思，請問這班車有到台北車站嗎？</div><div class="en">Excuse me, does this train go to Taipei Main Station?</div><div class="tag">Useful when traveling</div></div>
+      <div class="moment"><div class="time">21:15 · Friends</div><div class="said" lang="zh-Hant-TW">我最近迷上爬山，每個週末都會去。</div><div class="en">I've been really into hiking lately. I go every weekend.</div><div class="tag">IELTS Part 2 · A hobby</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="privacy" id="privacy">
+  <div class="wrap">
+    <p class="eyebrow">Privacy</p>
+    <h2>We don't even have servers.</h2>
+    <p class="lead" style="margin:20px auto 0">There's no Twicy account and nothing for us to collect. Your day stays on your iPhone and Apple Watch.</p>
+    <div class="facts">
+      <div class="card"><h3>Audio never leaves your devices.</h3><p>Recordings go from Apple Watch to iPhone directly, not through iCloud. Transcription runs on your iPhone.</p></div>
+      <div class="card"><h3>Only your voice.</h3><p>With Voice ID on, sentences spoken by other people are dropped, not saved. Your voiceprint stays on your iPhone.</p></div>
+      <div class="card"><h3>Your AI, your key.</h3><p>Twicy uses your own AI provider key, kept in the iPhone Keychain. Only sentence text is sent — straight to the provider you chose.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- launch: remove `hidden` once RELEASE.md A8 numbers are in -->
+<section id="numbers" hidden>
+  <div class="wrap">
+    <p class="eyebrow">In numbers</p>
+    <h2>Built to last the day.</h2>
+    <!-- Fill from RELEASE.md A8 (a full day on a real watch). Do not publish with placeholders. -->
+    <div class="nums">
+      <div class="num-card"><div class="big">{{HOURS}} h</div><p>of listening, {{BATTERY_LEFT}}% battery left</p></div>
+      <div class="num-card"><div class="big">{{SENTENCES}}</div><p>sentences picked for you a day</p></div>
+      <div class="num-card"><div class="big">{{SECONDS}} s</div><p>to practice one sentence</p></div>
+      <div class="num-card"><div class="big">{{STORAGE}}</div><p>of storage for a month</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="price">
+  <div class="wrap">
+    <p class="eyebrow">Price</p>
+    <h2>Pay once. Keep it.</h2>
+    <div class="card">
+      <div class="now">$9.99</div>
+      <p class="was">Regular price <s>$19.99</s></p>
+      <span class="pill">Launch week · 50% off</span>
+      <p class="once">One-time purchase, no subscription.</p>
+      <!-- launch: href="{{APP_STORE_URL}}?ct=site_price", text "Download on the App Store" -->
+  <a class="btn" href="#price"><svg><use href="#apple"/></svg>Coming soon to the App Store</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="eyebrow">FAQ</p>
+    <h2>Questions.</h2>
+    <details><summary>Do I need an Apple Watch?</summary><p>Yes — Apple Watch is what hears your day. Without one you can still open Twicy and try the full flow with sample data (Settings → Load sample data), but your own sentences come from the watch.</p></details>
+    <details><summary>Which languages does it support?</summary><p>You learn English. Your own language can be Japanese, Korean, or Chinese (Taiwan). The app itself is in English.</p></details>
+    <details><summary>Why do I need an AI key? What does it cost?</summary><p>Twicy has no servers, so it doesn't resell AI. You connect your own key from OpenAI, Google Gemini, DeepSeek, or any OpenAI-compatible provider. Twicy only sends short sentence text, so usage is light — check your provider's pricing for exact costs. You pay them directly; we never see the key.</p></details>
+    <details><summary>Is it recording other people?</summary><p>Your watch keeps only the parts where someone is speaking. With Voice ID on (the default), Twicy checks each sentence against your voice and drops what other people said. Recording is shown on the watch and you can stop it any time.</p></details>
+    <details><summary>Does it work offline?</summary><p>Listening, transcription, and practice run on your devices. Turning your day into cards needs a connection to your AI provider. The first time you use a language, iOS downloads its speech model.</p></details>
+    <details><summary>Is it a subscription?</summary><p>No. One purchase, and it's yours.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Twicy</span>
+    <span><a href="privacy.html">Privacy</a><a href="support.html">Support</a></span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+  document.querySelectorAll('.day').forEach(d => d.classList.toggle('on', d.id === 'day-' + b.dataset.day));
+}));
+</script>
+</body>
+</html>

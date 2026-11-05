@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Twicy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--page:#f5f5f5;--surface:#fff;--ink:#000;--text:#111;--muted:#6e6e73;--faint:#a1a1a6;--line:#e5e5e7;--ring-a:#000;--ring-b:#a8a8a8;--track:#e6e6e6}
+@media (prefers-color-scheme: dark){:root{--page:#000;--surface:#1c1c1e;--ink:#fff;--text:#f5f5f7;--muted:#98989d;--faint:#636366;--line:#2c2c2e;--ring-a:#fff;--ring-b:#757575;--track:#2b2b2b}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+nav .wrap{display:flex;align-items:center;height:56px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.03em;text-decoration:none}
+.brand svg{width:26px;height:26px}
+main{padding:56px 0 80px}
+h1{font-size:clamp(34px,6vw,48px);letter-spacing:-.035em;line-height:1.1}
+h2{font-size:22px;letter-spacing:-.02em;margin:44px 0 10px}
+p,li{color:var(--muted);font-size:17px}
+p+p{margin-top:12px}
+ul{padding-left:22px;margin-top:10px} li{margin:6px 0}
+strong{color:var(--text);font-weight:600}
+.date{margin-top:10px;color:var(--faint);font-size:15px}
+.card{background:var(--surface);border-radius:22px;padding:24px 26px;margin-top:16px}
+.card h3{font-size:18px;letter-spacing:-.01em}
+.card p{margin-top:6px;font-size:16px}
+footer{padding:0 0 64px;color:var(--faint);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{text-decoration:none;color:var(--muted)} footer a+a{margin-left:18px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="index.html"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--track)" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="var(--ring-a)" stroke-width="10" stroke-linecap="round" stroke-dasharray="210 264" transform="rotate(-90 50 50)"/><circle cx="50" cy="50" r="26" fill="none" stroke="var(--track)" stroke-width="10"/><circle cx="50" cy="50" r="26" fill="none" stroke="var(--ring-b)" stroke-width="10" stroke-linecap="round" stroke-dasharray="110 164" transform="rotate(-90 50 50)"/></svg>Twicy</a></div></nav>
+<main class="wrap">
+<h1>Support</h1>
+<p class="date">We read every message. Email <a href="mailto:kyriecai.me@gmail.com?subject=Twicy%20support">kyriecai.me@gmail.com</a> and include your iPhone, Apple Watch and iOS / watchOS versions, plus a screenshot if you can. Please never send your API key.</p>
+
+<h2>Getting started</h2>
+<div class="card"><h3>1. Pair your Apple Watch</h3><p>Install Twicy on your iPhone; the watch app installs with it. Open Twicy on the watch and allow the microphone.</p></div>
+<div class="card"><h3>2. Connect your AI</h3><p>In Twicy → Settings, choose a provider and paste your API key. The key stays in your iPhone Keychain.</p></div>
+<div class="card"><h3>3. Live your day</h3><p>Keep the watch on. In the evening, open Twicy on your iPhone: today's sentences are waiting under Today.</p></div>
+
+<h2>How to get an API key</h2>
+<ul>
+<li><strong>DeepSeek</strong> — sign up at <a href="https://platform.deepseek.com/api_keys">platform.deepseek.com</a>, add a small balance, create a key under API keys.</li>
+<li><strong>OpenAI</strong> — sign in at <a href="https://platform.openai.com/api-keys">platform.openai.com</a>, set up billing, create a key under API keys.</li>
+<li><strong>Google Gemini</strong> — sign in at <a href="https://aistudio.google.com/apikey">aistudio.google.com</a> and create an API key.</li>
+<li><strong>Other providers</strong> — any OpenAI-compatible service works: choose Custom and enter its base URL, model name and key.</li>
+</ul>
+<p>Twicy sends only short sentence text, so usage is light. Your provider bills you directly; check its pricing page.</p>
+
+<h2>FAQ</h2>
+<div class="card"><h3>Can I try it without an Apple Watch or a key?</h3><p>Yes. Settings → Load sample data fills Today with a sample day, so you can practice right away.</p></div>
+<div class="card"><h3>Today is empty.</h3><p>Make sure listening is on in the watch app and the watch is near your iPhone. Recordings move to the iPhone in the background; open Twicy and pull down on Today to process them now. Cards need a working API key.</p></div>
+<div class="card"><h3>It picked up other people.</h3><p>Turn on Voice ID in Settings and record your sample in a quiet place. Sentences that don't match your voice are dropped.</p></div>
+<div class="card"><h3>Which languages are supported?</h3><p>You learn English (American or British). Your language can be Japanese, Korean, or Chinese (Taiwan). The app is in English.</p></div>
+<div class="card"><h3>Practice doesn't hear me.</h3><p>Allow Microphone and Speech Recognition for Twicy in iOS Settings. If on-device recognition isn't available for your device, turn off Settings → On-device recognition only.</p></div>
+<div class="card"><h3>Is my data private?</h3><p>Yes — see the <a href="privacy.html">Privacy Policy</a>. There are no Twicy servers.</p></div>
+</main>
+<footer><div class="wrap"><span>© 2026 Twicy</span><span><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="support.html">Support</a></span></div></footer>
+</body>
+</html>
