@@ -2,289 +2,595 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Twicy — Learn English with what you say</title>
 <meta name="description" content="Your Apple Watch hears what you say all day. Twicy turns your own sentences into English you can say out loud — for IELTS and TOEFL speaking, and for your next trip abroad.">
 <meta property="og:title" content="Twicy — The best speaking textbook? You already wrote it.">
 <meta property="og:description" content="Your Apple Watch hears what you say all day. Twicy teaches you to say it in English.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#050607">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+KR:wght@400;500&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+KR:wght@400;500&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ---------- tokens ---------- */
 :root{
-  --page:#f5f5f5; --surface:#fff; --ink:#000; --on-ink:#fff;
-  --text:#111; --muted:#6e6e73; --faint:#a1a1a6; --line:#e5e5e7;
-  --ring-a:#000; --ring-b:#a8a8a8; --track:#e6e6e6;
-  --radius:28px;
+  --font:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans JP","Noto Sans KR","Noto Sans TC",system-ui,sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --page:#000; --surface:#1c1c1e; --ink:#fff; --on-ink:#000;
-    --text:#f5f5f7; --muted:#98989d; --faint:#636366; --line:#2c2c2e;
-    --ring-a:#fff; --ring-b:#757575; --track:#2b2b2b;
-  }
-}
+.dark{--bg:#050607;--bg2:#0b0c0e;--text:#f1f2ee;--dim:rgba(241,242,238,.62);--faint:rgba(241,242,238,.36);--ghost:rgba(241,242,238,.14);--line:rgba(241,242,238,.1);--surface:rgba(255,255,255,.04);--ink:#f1f2ee;--on-ink:#050607;--said:rgba(241,242,238,.5)}
+.light{--bg:#f5f5f7;--bg2:#fff;--text:#0b0b0c;--dim:#6e6e73;--faint:#a1a1a6;--ghost:#d2d2d7;--line:#e5e5e7;--surface:#fff;--ink:#0b0b0c;--on-ink:#fff;--said:#8a8a8e}
+
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--page);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans JP","Noto Sans KR","Noto Sans TC",system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:#050607;color:#f1f2ee;font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
-.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-section{padding:96px 0}
-@media (max-width:640px){section{padding:64px 0}}
-h1,h2,h3{letter-spacing:-.025em;line-height:1.08;font-weight:700}
-h1{font-size:clamp(40px,8vw,76px);letter-spacing:-.04em}
-h2{font-size:clamp(30px,5vw,48px);letter-spacing:-.035em}
-h3{font-size:20px;letter-spacing:-.015em}
-.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.lead{font-size:clamp(18px,2.4vw,22px);color:var(--muted);max-width:640px}
-.muted{color:var(--muted)}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+section,footer{background:var(--bg);color:var(--text)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+h1,h2,h3{font-weight:600;letter-spacing:-.03em;line-height:1.06}
+.eyebrow{font-size:11.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.chapter{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);display:flex;gap:10px;align-items:center}
+.chapter b{color:var(--text);font-weight:600}
+.dim{color:var(--dim)}
+.said{color:var(--said)}
+#mark .q1{fill:currentColor;opacity:.45}#mark .q2{fill:currentColor}
+[lang=ja]{font-family:"Noto Sans JP",var(--font)}
+[lang=ko]{font-family:"Noto Sans KR",var(--font)}
+[lang=zh-Hant-TW]{font-family:"Noto Sans TC",var(--font)}
 
-/* nav */
-nav{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);background:color-mix(in srgb,var(--page) 78%,transparent);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.03em;text-decoration:none}
-.brand svg{width:26px;height:26px}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--on-ink);text-decoration:none;font-weight:600;border-radius:999px;padding:14px 26px;font-size:17px}
-.btn.small{padding:8px 16px;font-size:14px}
-.btn svg{width:18px;height:18px;fill:currentColor}
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
-/* hero */
-.hero{padding:88px 0 72px;text-align:center}
-.hero .mark{width:120px;height:120px;margin:0 auto 40px}
-.hero h1 span{display:block;color:var(--muted)}
-.hero .lead{margin:24px auto 36px}
-.hero .note{margin-top:14px;font-size:14px;color:var(--faint)}
+/* ---------- buttons ---------- */
+.store{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--on-ink);border-radius:12px;padding:9px 16px 9px 13px;text-decoration:none;line-height:1.05;border:1px solid transparent;transition:transform .25s var(--ease),opacity .25s}
+.store:hover{transform:translateY(-1px)}
+.store svg{width:22px;height:22px;fill:currentColor;flex:none}
+.store span{white-space:nowrap}
+.store small{display:block;font-size:10.5px;font-weight:500;opacity:.8;letter-spacing:.01em}
+.store b{display:block;font-size:19px;font-weight:600;letter-spacing:-.02em}
+.dark .store{background:#fff;color:#000}
+.light .store{background:#000;color:#fff}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:8px 14px;font-size:12px;color:var(--dim);line-height:1.3;background:var(--surface)}
+.pill b{display:block;color:var(--text);font-weight:600;font-size:12.5px}
+.arrow{font-size:12px;color:var(--dim);text-decoration:none;letter-spacing:.02em}
+.arrow:hover{color:var(--text)}
 
-/* steps */
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
-@media (max-width:820px){.steps{grid-template-columns:1fr}}
-.card{background:var(--surface);border-radius:var(--radius);padding:32px}
-.step .num{font-size:14px;font-weight:600;color:var(--faint);margin-bottom:28px;display:block}
-.step p{color:var(--muted);margin-top:10px}
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;height:56px;display:flex;align-items:center;transition:background .4s,color .4s,border-color .4s;
+  background:rgba(5,6,7,.55);color:#f1f2ee;border-bottom:1px solid rgba(255,255,255,.06);backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px)}
+html[data-nav=light] nav{background:rgba(245,245,247,.72);color:#0b0b0c;border-bottom-color:rgba(0,0,0,.06)}
+nav .wrap{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:-.03em;text-decoration:none}
+.brand svg{width:24px;height:19px}
+nav ul{display:flex;gap:26px;list-style:none;font-size:13.5px;font-weight:500;opacity:.85}
+nav ul a{text-decoration:none}
+nav ul a:hover{opacity:.7}
+.navcta{font-size:13px;font-weight:600;text-decoration:none;border:1px solid currentColor;border-radius:999px;padding:7px 14px;opacity:.9;white-space:nowrap}
+@media (max-width:720px){nav ul{display:none}}
 
-/* for whom */
-.who{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px}
-@media (max-width:820px){.who{grid-template-columns:1fr}}
-.who .card{padding:40px}
-.who h3{font-size:28px;letter-spacing:-.03em}
-.who p{color:var(--muted);margin-top:14px;font-size:17px}
-.who .q{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:15px}
-.who .q div{padding:4px 0}
+/* ---------- hero ---------- */
+.hero{position:relative;height:480vh}
+.stage{position:sticky;top:0;height:100svh;min-height:600px;overflow:hidden;background:#050607}
+#field{position:absolute;inset:0;width:100%;height:100%}
+.glow{position:absolute;left:50%;top:44%;width:min(70vw,760px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.16),rgba(255,255,255,.05) 40%,transparent 70%);opacity:0;pointer-events:none;filter:blur(10px)}
+.layer{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px clamp(20px,4vw,48px) 90px;opacity:0;transform:translateY(24px);pointer-events:none;will-change:opacity,transform}
+.layer.on{pointer-events:auto}
+
+/* layer 0: copy */
+.copy h1{font-size:clamp(34px,4.6vw,58px);font-weight:500;letter-spacing:-.035em;line-height:1.1}
+.copy h1 .w{display:inline-flex;align-items:center;gap:.18em;font-style:italic;font-weight:500;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:.02em}
+.copy h1 .w svg{width:.72em;height:.72em;fill:none;stroke:currentColor;stroke-width:1.6}
+.copy .sub{margin-top:22px;font-size:clamp(16px,1.6vw,20px);color:var(--dim);max-width:40em;line-height:1.5}
+.copy .sub i{color:var(--text);font-style:normal;font-weight:500}
+.copy .sub2{margin-top:10px;font-size:clamp(14px,1.3vw,16px);color:var(--dim)}
+.copy .sub2 i{color:var(--text);font-style:italic}
+.cta{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:34px;flex-wrap:wrap}
+.price{display:flex;align-items:baseline;gap:10px;line-height:1}
+.price .now{font-size:32px;font-weight:600;letter-spacing:-.04em}
+.price .was{font-size:14px;color:var(--faint);text-decoration:line-through}
+.price small{display:block;font-size:11.5px;color:var(--dim);margin-top:5px;letter-spacing:.01em}
+.facts{margin-top:46px;width:100%;max-width:980px;border-top:1px solid var(--line);padding-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:24px;text-align:left}
+.facts div{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:12.5px;color:var(--dim);line-height:1.5}
+.facts b{display:block;color:var(--text);font-weight:600;font-size:13.5px;margin-bottom:2px}
+.facts svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;margin-top:2px;opacity:.8}
+.servers{margin-top:18px;font-style:italic;font-size:15px;color:var(--text);opacity:.9}
+@media (max-width:720px){.facts{grid-template-columns:1fr;gap:14px;margin-top:30px}.cta{gap:16px}.copy h1{font-size:clamp(30px,8.4vw,44px)}.servers{margin-top:12px;font-size:14px}}
+@media (max-height:720px) and (min-width:721px){.facts{margin-top:26px}.cta{margin-top:24px}}
+
+/* hero chrome */
+.chrome{position:absolute;left:0;right:0;bottom:0;padding:0 clamp(20px,4vw,48px) 22px;display:flex;justify-content:space-between;align-items:flex-end;z-index:3}
+.tabs{display:flex;gap:22px}
+.tabs button{font-size:12.5px;font-weight:500;color:var(--faint);padding:6px 0;position:relative;letter-spacing:.01em}
+.tabs button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.tabs button.on{color:#fff}.tabs button.on::after{transform:scaleX(1)}
+.motto{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+@media (max-width:560px){.motto{display:none}}
+.scrollhint{position:absolute;right:clamp(20px,4vw,48px);top:50%;width:2px;height:64px;background:var(--ghost);border-radius:2px;transform:translateY(-50%);overflow:hidden;z-index:3}
+.scrollhint i{position:absolute;left:0;right:0;top:0;height:30%;background:#fff;border-radius:2px;transform:translateY(0)}
+@media (max-width:720px){.scrollhint{display:none}}
+
+/* layer 1: signals */
+.signals{align-items:stretch;text-align:left;justify-content:center}
+.sigwrap{width:100%;max-width:1120px;margin:0 auto}
+.signals .chapter{margin-bottom:22px}
+.signals h2{font-size:clamp(26px,3.6vw,44px);font-weight:500;letter-spacing:-.03em;line-height:1.15}
+.signals h2 span{display:block;color:var(--dim)}
+.signals h2 svg{display:inline-block;width:.6em;height:.5em;vertical-align:-.02em;margin-left:.15em}
+.rows{margin-top:clamp(18px,4vh,44px);display:grid;gap:clamp(8px,2vh,18px)}
+.row{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:center;opacity:0;transform:translateX(-10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.row.on{opacity:1;transform:none}
+.row .lab b{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;letter-spacing:-.01em}
+.row .lab b svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;opacity:.6}
+.row .lab span{display:block;font-size:12px;color:var(--faint);margin-top:3px}
+.row svg.line{width:100%;height:64px;display:block;overflow:visible}
+.row svg.line path{fill:none;stroke:rgba(241,242,238,.85);stroke-width:1.1}
+.row svg.line .dot{fill:#fff}
+.row svg.line .ghost{stroke:var(--ghost)}
+.row .ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:4px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.row .ticks span{display:flex;gap:6px}
+.row .ticks i{font-style:normal;color:var(--dim)}
+@media (max-width:720px){.row .ticks{font-size:9.5px}.row{grid-template-columns:1fr;gap:6px}.row svg.line{height:44px}.signals{padding-top:64px;justify-content:flex-start}.row .ticks span:nth-child(2){display:none}}
+@media (max-height:700px){.row svg.line{height:40px}.rows{gap:6px}}
+
+/* layer 3: product */
+.product{justify-content:center}
+.prod{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(16px,4vw,60px);width:100%;max-width:1100px}
+.prod .mid{display:flex;flex-direction:column;align-items:center;gap:14px}
+.prod .mid .mark{width:clamp(56px,7vw,92px);height:auto}
+.prod .mid .mark{color:#fff}
+.prod .mid h2{font-size:clamp(40px,6vw,76px);font-weight:700;letter-spacing:-.045em;line-height:1}
+.prod .mid p{font-size:clamp(14px,1.4vw,18px);color:var(--dim)}
+.prod .mid .store{margin-top:10px}
+.prod .side{display:flex;justify-content:center}
+.phone{--pw:clamp(150px,16vw,230px);width:var(--pw);aspect-ratio:1206/2622;position:relative;border-radius:calc(var(--pw)*.17);background:#111;padding:calc(var(--pw)*.028);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 90px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.04)}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:calc(var(--pw)*.145);overflow:hidden;background:#000}
+.phone .scr img,.phone .scr .app{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.phone::after{content:"";position:absolute;top:calc(var(--pw)*.062);left:50%;transform:translateX(-50%);width:calc(var(--pw)*.29);height:calc(var(--pw)*.082);background:#000;border-radius:999px;z-index:2}
+.prod .phone{transform:rotate(-6deg)}
+.watch{--ww:clamp(130px,14vw,210px);width:var(--ww);aspect-ratio:416/496;position:relative;border-radius:calc(var(--ww)*.3);background:linear-gradient(160deg,#2a2a2d,#0e0e10);padding:calc(var(--ww)*.055);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 30px 70px rgba(0,0,0,.6)}
+.watch .scr{width:100%;height:100%;border-radius:calc(var(--ww)*.25);background:#000;overflow:hidden;position:relative}
+.watch .scr img{width:100%;height:100%;object-fit:cover}
+.watch::before{content:"";position:absolute;right:calc(var(--ww)*-.045);top:28%;width:calc(var(--ww)*.055);height:calc(var(--ww)*.17);border-radius:4px;background:linear-gradient(90deg,#3a3a3d,#19191b)}
+.watch::after{content:"";position:absolute;right:calc(var(--ww)*-.03);top:52%;width:calc(var(--ww)*.035);height:calc(var(--ww)*.22);border-radius:3px;background:#1c1c1e}
+.prod .watch{transform:rotate(7deg)}
+.keep{position:absolute;bottom:58px;left:0;right:0;text-align:center;font-size:12px;color:var(--faint)}
+@media (max-width:720px){.prod{grid-template-columns:1fr;gap:18px}.prod .side.r{display:none}.prod .side .phone{--pw:clamp(120px,30vw,160px);transform:none}.prod .mid h2{font-size:48px}.product{padding-bottom:110px}}
+
+/* ---------- proof (light) ---------- */
+.proof{padding:clamp(80px,10vw,140px) 0 clamp(60px,8vw,110px)}
+.proof .chapter{margin-bottom:clamp(40px,6vw,80px)}
+.proofgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,6vw,90px);align-items:center}
+.proof .big{font-size:clamp(34px,4.6vw,58px);font-weight:600;letter-spacing:-.04em;line-height:1.04}
+.proof .big span{display:block;color:var(--dim)}
+.proof .big b{font-weight:600;font-variant-numeric:tabular-nums}
+.proof .kicker{font-size:13px;color:var(--dim);margin-bottom:18px}
+.proof .note{margin-top:18px;font-size:17px;color:var(--text);font-weight:500}
+.proof .bars{margin-top:38px;border-top:1px solid var(--line);padding-top:22px}
+.proof .bars h4{font-size:14px;font-weight:600;letter-spacing:-.01em;margin-bottom:14px}
+.strip{position:relative;height:46px;border-radius:8px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+.strip i{position:absolute;top:0;bottom:0;background:var(--ink);opacity:.9;transform:scaleY(0);transform-origin:bottom;transition:transform .7s var(--ease)}
+.strip.in i{transform:scaleY(1)}
+.striplegend{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);margin-top:8px;font-variant-numeric:tabular-nums}
+.striplegend span:last-child{text-align:right}
+.watchshot{display:flex;flex-direction:column;align-items:center;gap:22px}
+.watchshot .watch{--ww:clamp(220px,24vw,330px)}
+.watchshot .scr{display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff}
+.ring{position:relative;width:62%;aspect-ratio:1}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.ring .tr{stroke:rgba(255,255,255,.14)}
+.ring .pr{stroke:#fff;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.6s var(--ease) .2s}
+.in .ring .pr{stroke-dashoffset:127}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ring .c b{font-size:clamp(28px,3.4vw,46px);font-weight:600;letter-spacing:-.04em}
+.ring .c span{font-size:10px;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:.02em}
+.watchshot .under{margin-top:10px;font-size:11px;color:rgba(255,255,255,.7);letter-spacing:.01em}
+.watchshot .cap{font-size:11.5px;color:var(--faint);text-align:center;line-height:1.6;max-width:320px}
+.proofcards{margin-top:clamp(48px,7vw,96px);display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pc{background:var(--surface);border-radius:24px;padding:clamp(24px,3vw,36px);display:grid;grid-template-columns:1fr auto;gap:18px;align-items:start;border:1px solid var(--line)}
+.pc h3{font-size:clamp(20px,2.2vw,26px);letter-spacing:-.03em}
+.pc h3 span{display:block;color:var(--dim)}
+.pc p{margin-top:12px;color:var(--dim);font-size:14.5px;max-width:32em}
+.pc .gl{width:44px;height:44px;border-radius:14px;background:var(--bg);display:flex;align-items:center;justify-content:center}
+.pc .gl svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5}
+@media (max-width:860px){.proofgrid{grid-template-columns:1fr}.proofcards{grid-template-columns:1fr}}
+
+/* ---------- scenes (dark) ---------- */
+.scenes{padding:clamp(72px,9vw,120px) 0 clamp(60px,7vw,100px);background:#0b0c0a}
+.scenes .top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.clock{text-align:right;font-size:11px;color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
+.clock b{display:block;font-size:28px;font-weight:500;letter-spacing:-.02em;color:var(--text);font-variant-numeric:tabular-nums;margin:2px 0 4px;text-transform:none}
+.clock button{font-size:11px;color:var(--dim);letter-spacing:.02em;text-transform:none}
+.clock button:hover{color:var(--text)}
+.langs{display:flex;gap:6px;margin-top:28px}
+.langs button{font-size:12.5px;font-weight:500;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:6px 14px;transition:all .3s}
+.langs button.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.scene{margin-top:clamp(40px,7vw,90px);min-height:300px}
+.scene .when{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-variant-numeric:tabular-nums}
+.scene .native{margin-top:16px;font-size:clamp(28px,4.4vw,56px);font-weight:500;letter-spacing:-.02em;line-height:1.2;color:var(--said);max-width:18em}
+.scene .en{margin-top:14px;font-size:clamp(26px,4vw,52px);font-weight:600;letter-spacing:-.035em;line-height:1.12;max-width:16em}
+.scene .why{margin-top:22px;font-size:14px;color:var(--dim);max-width:34em;line-height:1.6}
+.scene .why b{color:var(--text);font-weight:500}
+.scene > *{transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.scene.swap > *{opacity:0;transform:translateY(8px)}
+.scenenav{margin-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.scenenav button{text-align:left;padding:10px 0 0;border-top:1px solid var(--line);position:relative;color:var(--faint);font-size:12px;display:flex;gap:10px;align-items:baseline}
+.scenenav button b{font-weight:500;color:var(--text);opacity:.5}
+.scenenav button.on b,.scenenav button.on{color:var(--text);opacity:1}
+.scenenav button i{position:absolute;left:0;top:-1px;height:1px;width:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.scenenav button.on i{animation:prog var(--dur,6s) linear forwards}
+@keyframes prog{to{transform:scaleX(1)}}
+@media (max-width:640px){.scenenav{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- watch (dark) ---------- */
+.wrist{padding:clamp(80px,10vw,140px) 0;text-align:center;overflow:hidden;position:relative}
+.wrist h2{font-size:clamp(32px,4.6vw,58px);font-weight:600;letter-spacing:-.04em}
+.wrist h2 span{display:block;color:var(--dim);font-weight:500}
+.wrist p.sub{margin-top:16px;font-size:14px;color:var(--dim)}
+.bigwatch{margin:clamp(40px,6vw,70px) auto 0;position:relative;width:min(92vw,420px)}
+.bigwatch .watch{--ww:min(70vw,300px);margin:0 auto;cursor:pointer;transition:transform .4s var(--ease)}
+.bigwatch .watch:active{transform:scale(.985)}
+.bigwatch .scr{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#fff}
+.bigwatch .time{position:absolute;top:8%;right:9%;font-size:clamp(14px,1.6vw,20px);font-weight:600}
+.bigwatch .ring{width:56%}
+.bigwatch .ring .pr{transition:stroke-dashoffset .4s linear}
+.bigwatch .ring circle{stroke-width:7}
+.bigwatch .ring .tr{stroke:rgba(255,255,255,.25)}
+.bigwatch .ring .c b{font-size:clamp(22px,2.6vw,34px);font-weight:500;letter-spacing:-.02em}
+.dots{display:flex;gap:2px;align-items:center;height:14px;width:64%}
+.dots i{flex:1;height:3px;background:rgba(255,255,255,.35);border-radius:1px;transform-origin:center;transition:transform .12s,background .3s}
+.bigwatch .st{font-size:clamp(12px,1.4vw,16px);color:rgba(255,255,255,.6);letter-spacing:.01em}
+.wrist .hint{margin-top:26px;font-size:12px;color:var(--faint)}
+.wrist .halo{position:absolute;left:50%;top:60%;width:60vw;height:60vw;max-width:700px;max-height:700px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.09),transparent 70%);pointer-events:none;opacity:0;transition:opacity 1.2s}
+.wrist.live .halo{opacity:1}
+
+/* ---------- story (light, pinned phone) ---------- */
+.story{position:relative;height:560vh}
+.story .stg{position:sticky;top:0;height:100svh;min-height:620px;overflow:hidden}
+.story .head{position:absolute;top:76px;left:0;right:0;display:flex;justify-content:space-between;padding:0 clamp(20px,4vw,48px);font-size:12px;color:var(--dim)}
+.story .head .chapter{color:var(--dim)}
+.storygrid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;align-items:center;max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,48px);gap:clamp(20px,4vw,60px)}
+.stext{position:relative;min-height:320px}
+.sc{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
+.sc.on{opacity:1;transform:none;pointer-events:auto}
+.sc .when{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.sc h3{margin-top:14px;font-size:clamp(28px,3.6vw,46px);font-weight:600;letter-spacing:-.035em;line-height:1.1}
+.sc h3 span{display:block;color:var(--dim);font-weight:500}
+.sc p{margin-top:16px;font-size:15.5px;color:var(--dim);max-width:30em;line-height:1.6}
+.sc .q{margin-top:22px;padding-left:14px;border-left:2px solid var(--ghost);font-size:15px}
+.sc .q small{display:block;color:var(--faint);font-size:12px;margin-top:4px}
+.sphone{display:flex;justify-content:center;align-items:center}
+.sphone .phone{--pw:clamp(220px,min(24vw,42svh),320px);transition:transform .8s var(--ease);box-shadow:0 0 0 1px rgba(0,0,0,.08),0 50px 100px rgba(0,0,0,.18)}
+.sphone .scr > *{opacity:0;transition:opacity .6s var(--ease)}
+.sphone .scr > .on{opacity:1}
+.sdots{position:absolute;bottom:28px;right:clamp(20px,4vw,48px);display:flex;gap:14px;font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums}
+.sdots span.on{color:var(--text)}
+.sfoot{position:absolute;bottom:28px;left:clamp(20px,4vw,48px);font-size:11px;color:var(--faint)}
+/* HTML app screens inside the phone */
+.app{background:#000;color:#fff;font-family:var(--font);display:flex;flex-direction:column;padding:11% 7% 8%;font-size:calc(var(--pw)*.045)}
+.app .bar{display:flex;align-items:center;gap:.7em;font-size:.75em;color:rgba(255,255,255,.6);margin-top:1.4em}
+.app .bar .x{width:2em;height:2em;border-radius:50%;background:#1c1c1e;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9em}
+.app .bar .pg{flex:1;height:3px;background:#2c2c2e;border-radius:3px;overflow:hidden}
+.app .bar .pg i{display:block;height:100%;width:34%;background:#8e8e93}
+.app .mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.8em;padding:0 .2em;margin-top:-3em}
+.app .ja{font-size:.95em;line-height:1.45;font-weight:500}
+.app .en{font-size:1em;font-weight:600;letter-spacing:-.01em;line-height:1.35;transition:opacity .6s}
+.app .en .wd{display:inline-block;margin:0 .14em;opacity:.16;transform:translateY(3px);transition:opacity .25s,transform .25s}
+.app .en .wd.on{opacity:1;transform:none}
+.app .tag{font-size:.6em;color:rgba(255,255,255,.5);letter-spacing:.02em}
+.app .score{display:inline-flex;align-items:center;gap:.4em;background:#fff;color:#000;border-radius:999px;padding:.45em 1em;font-size:.72em;font-weight:600;opacity:0;transform:scale(.9);transition:opacity .35s,transform .35s}
+.app .score.on{opacity:1;transform:none}
+.app .wave{display:grid;grid-template-columns:repeat(28,1fr);gap:2px;height:2.4em;align-items:end;opacity:.5}
+.app .wave i{background:#fff;height:20%;border-radius:1px;transition:height .15s}
+.app .btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4em;margin-top:.8em}
+.app .btns span{background:#1c1c1e;border-radius:.7em;padding:.5em 0;text-align:center;font-size:.7em;font-weight:600;color:rgba(255,255,255,.7)}
+.app .btns span:first-child{background:#fff;color:#000}
+.app .btns small{display:block;font-weight:400;font-size:.8em;opacity:.6}
+.app .hear{display:inline-flex;gap:.4em;align-items:center;font-size:.62em;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:.35em .9em}
+@media (max-width:860px){
+  .storygrid{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start;padding-top:120px;gap:10px}
+  .stext{min-height:250px}
+  .sc .q{display:none}
+  .story .head > span:last-child{display:none}
+  .sc{justify-content:flex-start}
+  .sc h3{font-size:clamp(24px,6.6vw,30px)}.sc p{font-size:14px}
+  .sphone{align-items:flex-start}
+  .sphone .phone{--pw:min(46vw,200px)}
+  .sdots{bottom:18px}.sfoot{display:none}
+}
+
+/* ---------- made for (light) ---------- */
+.madefor{padding:clamp(80px,10vw,140px) 0}
+.madefor h2{margin-top:18px;font-size:clamp(30px,4.4vw,54px);letter-spacing:-.04em}
+.madefor h2 span{display:block;color:var(--dim);font-weight:500}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(32px,5vw,56px)}
+.who .card{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:clamp(26px,3.4vw,40px)}
+.who h3{font-size:clamp(22px,2.4vw,28px);letter-spacing:-.03em}
+.who p{color:var(--dim);margin-top:14px;font-size:15.5px;line-height:1.6}
+.who .q{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);font-size:14.5px;display:grid;gap:8px}
 .who .q b{font-weight:600}
+.who .q span{color:var(--dim)}
+@media (max-width:820px){.who{grid-template-columns:1fr}}
 
-/* day */
-.tabs{display:flex;gap:8px;margin:36px 0 24px;flex-wrap:wrap}
-.tabs button{font:inherit;font-size:15px;font-weight:500;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:8px 18px;cursor:pointer}
-.tabs button[aria-selected=true]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
-.day{display:none;grid-template-columns:repeat(2,1fr);gap:16px}
-.day.on{display:grid}
-@media (max-width:820px){.day{grid-template-columns:1fr}}
-.moment{background:var(--surface);border-radius:22px;padding:24px 26px}
-.moment .time{font-size:13px;font-weight:600;color:var(--faint);font-variant-numeric:tabular-nums}
-.moment .said{font-size:17px;margin-top:10px;color:var(--muted)}
-.moment .en{font-size:21px;font-weight:600;letter-spacing:-.015em;margin-top:6px}
-.moment .tag{font-size:12px;color:var(--faint);margin-top:12px}
+/* ---------- week (dark marquee) ---------- */
+.week{padding:clamp(80px,10vw,130px) 0 clamp(60px,8vw,100px);overflow:hidden;background:#08080a}
+.week h2{margin-top:18px;font-size:clamp(30px,4.2vw,50px);font-weight:500;letter-spacing:-.035em}
+.lanes{margin-top:clamp(36px,5vw,64px);display:grid;gap:14px}
+.lane{display:flex;gap:14px;width:max-content;animation:lane var(--t,60s) linear infinite}
+.lane:hover{animation-play-state:paused}
+.lane.rev{animation-direction:reverse}
+@keyframes lane{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.lane{animation:none;width:auto;flex-wrap:wrap}}
+.mc{width:300px;flex:none;border:1px solid var(--line);border-radius:18px;padding:20px 22px;background:var(--surface);display:flex;flex-direction:column;gap:10px;min-height:150px}
+.mc .t{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-variant-numeric:tabular-nums}
+.mc .e{font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.mc .s{font-size:13px;color:var(--said);margin-top:auto}
+.mc .g{font-size:11px;color:var(--faint)}
 
-/* privacy */
-.privacy{text-align:center}
-.privacy h2{font-size:clamp(34px,6vw,60px)}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;text-align:left}
-@media (max-width:820px){.facts{grid-template-columns:1fr}}
-.facts p{color:var(--muted);margin-top:8px}
-
-/* numbers */
-.nums{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
-@media (max-width:820px){.nums{grid-template-columns:1fr 1fr}}
-.num-card{background:var(--surface);border-radius:var(--radius);padding:28px}
-.num-card .big{font-size:clamp(34px,5vw,48px);font-weight:700;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.num-card p{color:var(--muted);font-size:15px;margin-top:6px}
-
-/* price */
-.price{text-align:center}
-.price .card{max-width:520px;margin:40px auto 0;padding:48px 32px}
-.price .now{font-size:72px;font-weight:800;letter-spacing:-.05em;line-height:1}
-.price .was{color:var(--muted);margin-top:10px}
-.price .was s{color:var(--faint)}
-.price .pill{display:inline-block;margin-top:18px;font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
-.price .once{margin:18px 0 30px;color:var(--muted)}
-
-/* faq */
-details{border-bottom:1px solid var(--line);padding:22px 0}
-details:first-of-type{border-top:1px solid var(--line);margin-top:40px}
-summary{cursor:pointer;font-size:18px;font-weight:600;letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between;gap:16px}
+/* ---------- buy + faq (dark) ---------- */
+.buy{padding:clamp(80px,10vw,130px) 0 clamp(40px,6vw,70px)}
+.buy h2{font-size:clamp(26px,3.2vw,36px);font-weight:500;letter-spacing:-.03em}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px);margin-top:clamp(28px,4vw,48px)}
+.cols h3{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.cols p{margin-top:10px;font-size:13.5px;color:var(--dim);line-height:1.65}
+.buy .req{margin-top:clamp(28px,4vw,44px);font-size:12px;color:var(--faint)}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+.faq{padding:clamp(40px,6vw,70px) 0 clamp(80px,10vw,120px)}
+.faq h2{font-size:clamp(26px,3.2vw,36px);font-weight:500;letter-spacing:-.03em;margin-bottom:12px}
+details{border-bottom:1px solid var(--line);padding:20px 0}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-size:16px;font-weight:500;letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between;gap:16px}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--faint);font-weight:400}
+summary::after{content:"+";color:var(--faint);font-weight:300;font-size:20px;line-height:1}
 details[open] summary::after{content:"–"}
-details p{color:var(--muted);margin-top:12px;max-width:720px}
+details p{color:var(--dim);margin-top:12px;max-width:680px;font-size:14.5px;line-height:1.65}
 
-footer{padding:48px 0 64px;color:var(--faint);font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer a{text-decoration:none;color:var(--muted)}
-footer a+a{margin-left:18px}
-
-[lang=ja]{font-family:"Noto Sans JP",system-ui,sans-serif}
-[lang=ko]{font-family:"Noto Sans KR",system-ui,sans-serif}
-[lang=zh-Hant-TW]{font-family:"Noto Sans TC",system-ui,sans-serif}
+/* ---------- footer ---------- */
+footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
+.ftop{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.ftop .brand{font-size:30px}
+.ftop .brand svg{width:40px;height:32px}
+.ftop .line{font-size:clamp(26px,3.6vw,44px);font-weight:500;letter-spacing:-.035em}
+.fbot{margin-top:clamp(48px,6vw,80px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--faint)}
+.fbot .links{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.fbot a{text-decoration:none;color:var(--dim);white-space:nowrap}
+.fbot a:hover{color:var(--text)}
+.fbot .store{padding:6px 12px 6px 10px}.fbot .store b{font-size:15px}.fbot .store small{font-size:9px}
 </style>
 </head>
-<body>
+<body class="dark">
 
-<!-- Logo is being redesigned: two concentric rings stand in for the mark. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="mark" viewBox="0 0 100 100">
-    <circle cx="50" cy="50" r="42" fill="none" stroke="var(--track)" stroke-width="10"/>
-    <circle cx="50" cy="50" r="42" fill="none" stroke="var(--ring-a)" stroke-width="10" stroke-linecap="round" stroke-dasharray="210 264" transform="rotate(-90 50 50)"/>
-    <circle cx="50" cy="50" r="26" fill="none" stroke="var(--track)" stroke-width="10"/>
-    <circle cx="50" cy="50" r="26" fill="none" stroke="var(--ring-b)" stroke-width="10" stroke-linecap="round" stroke-dasharray="110 164" transform="rotate(-90 50 50)"/>
+  <!-- The brand: two quotation marks. Gray is what you said, ink is what you learned to say. Same geometry as the app (Shared/QuoteGeometry.swift). -->
+  <symbol id="mark" viewBox="266 318 492 380">
+    <path class="q1" d="M490 430 Q490 620 326 698 Q408 600 372 542 A112 112 0 1 1 490 430 Z"/>
+    <path class="q2" d="M758 430 Q758 620 594 698 Q676 600 640 542 A112 112 0 1 1 758 430 Z"/>
   </symbol>
   <symbol id="apple" viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></symbol>
+  <symbol id="watchicon" viewBox="0 0 24 24"><rect x="6" y="5" width="12" height="14" rx="3.5"/><path d="M9 5V2.5h6V5M9 19v2.5h6V19M18.5 10v3"/></symbol>
 </svg>
 
 <nav>
   <div class="wrap">
     <a class="brand" href="#top"><svg><use href="#mark"/></svg>Twicy</a>
+    <ul><li><a href="#faq">FAQ</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="support.html">Support</a></li></ul>
     <!-- launch: href="{{APP_STORE_URL}}?ct=site_nav", text "Get Twicy" -->
-    <a class="btn small" href="#price">Coming soon</a>
+    <a class="navcta" href="#buy">Coming soon</a>
   </div>
 </nav>
 
-<header class="hero wrap" id="top">
-  <svg class="mark"><use href="#mark"/></svg>
-  <h1>The best speaking textbook?<span>You already wrote it.</span></h1>
-  <p class="lead">Your Apple Watch hears what you say all day. Each evening, Twicy picks the sentences you'll say most often and teaches you to say them in English — out loud.</p>
-  <!-- launch: href="{{APP_STORE_URL}}?ct=site_hero", text "Download on the App Store" -->
-  <a class="btn" href="#price"><svg><use href="#apple"/></svg>Coming soon to the App Store</a>
-  <p class="note">iPhone + Apple Watch · $9.99 launch week · No subscription</p>
-</header>
+<!-- ============ HERO: one pinned stage, four chapters ============ -->
+<section class="hero dark" id="top" data-theme="dark">
+  <div class="stage" id="stage">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="glow" id="glow"></div>
 
-<section id="how">
+    <!-- 0 · Say -->
+    <div class="layer copy on" id="l0">
+      <h1>Turn your <span class="w"><svg><use href="#watchicon"/></svg>Apple Watch</span><br>into your English speaking textbook.</h1>
+      <p class="sub">It hears what you say all day — in <i lang="ja">日本語</i>, <i lang="ko">한국어</i> or <i lang="zh-Hant-TW">繁體中文</i> — and tonight it teaches you to say it in English. Out loud.</p>
+      <p class="sub2"><i>Your</i> sentences. Not a textbook's.</p>
+      <div class="cta">
+        <!-- launch: href="{{APP_STORE_URL}}?ct=site_hero", small "Download on the", b "App Store" -->
+        <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></a>
+        <div class="price"><div><div style="display:flex;align-items:baseline;gap:10px"><span class="now">$9.99</span><span class="was">$19.99</span></div><small>Launch week · 50% off</small></div></div>
+        <span class="pill"><span>One-time purchase<b>No subscription</b></span></span>
+      </div>
+      <div class="facts">
+        <div><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M10 17h4"/></svg><span><b>Almost everything runs on your iPhone</b>Transcription, Voice ID and word-by-word scoring on device. AI through your own key.</span></div>
+        <div><svg viewBox="0 0 24 24"><rect x="3" y="8" width="16" height="9" rx="2"/><path d="M19 11v3h1.5v-3zM6 10.5v4"/></svg><span><b>Built to last the day</b>12 hours of listening on Apple Watch, 55% battery left.</span></div>
+      </div>
+      <p class="servers">We don't even have servers.</p>
+    </div>
+
+    <!-- 1 · Learn -->
+    <div class="layer signals" id="l1">
+      <div class="sigwrap">
+        <p class="chapter"><b>Twicy</b> + Apple Watch</p>
+        <h2>The best speaking textbook?<span>You already wrote it<svg><use href="#mark"/></svg></span></h2>
+        <div class="rows" id="rows">
+          <div class="row"><div class="lab"><b>Said <svg viewBox="0 0 24 24"><path d="M4 12h2M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></b><span>What you said, all day</span></div><div><svg class="line" data-kind="voice"></svg><div class="ticks"><span><i>08:10</i>Commute</span><span><i>12:20</i>Lunch</span><span><i>21:30</i>Friends</span></div></div></div>
+          <div class="row"><div class="lab"><b>Picked <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg></b><span>Ten you'll say again</span></div><div><svg class="line" data-kind="picked"></svg><div class="ticks"><span><i>10</i>sentences a day</span><span>yours to set</span><span><i>→</i>cards, with the native way to say it</span></div></div></div>
+          <div class="row"><div class="lab"><b>Said in English <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></b><span>Every word checked</span></div><div><svg class="line" data-kind="words"></svg><div class="ticks"><span>Wanna</span><span>grab</span><span>food</span><span>after</span><span>class?</span><span><i>5/5</i></span></div></div></div>
+          <div class="row"><div class="lab"><b>Kept <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 0 8 8"/><path d="M12 8v4l3 2"/></svg></b><span>Reviewed until it sticks</span></div><div><svg class="line" data-kind="fsrs"></svg><div class="ticks"><span><i>1d</i></span><span><i>3d</i></span><span><i>7d</i></span><span><i>16d</i></span><span><i>35d</i></span><span>FSRS</span></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 · Twicy -->
+    <div class="layer product" id="l3">
+      <div class="prod">
+        <div class="side l"><div class="phone"><div class="scr"><img src="assets/ja-1-today.png" alt="Twicy Today screen: two rings, Learn, Review, Wander, and today's sentences" width="690" height="1500" loading="lazy"></div></div></div>
+        <div class="mid">
+          <svg class="mark"><use href="#mark"/></svg>
+          <h2>Twicy</h2>
+          <p>Learn English with what you say.</p>
+          <!-- launch: href="{{APP_STORE_URL}}?ct=site_product" -->
+          <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></a>
+        </div>
+        <div class="side r"><div class="watch"><div class="scr"><img src="assets/watch-today.png" alt="Twicy on Apple Watch: listening ring" width="416" height="496" loading="lazy"></div></div></div>
+      </div>
+      <p class="keep">Keep exploring ↓</p>
+    </div>
+
+    <div class="chrome">
+      <div class="tabs" id="tabs"><button class="on" data-go="0">Say</button><button data-go="1">Learn</button><button data-go="2">Twicy</button></div>
+      <span class="motto">Your words. Your English.</span>
+    </div>
+    <div class="scrollhint"><i id="hint"></i></div>
+  </div>
+</section>
+
+<!-- ============ PROOF (light) ============ -->
+<section class="proof light" id="proof" data-theme="light">
   <div class="wrap">
-    <p class="eyebrow">How it works</p>
-    <h2>Talk like you always do.<br>Learn it in English tonight.</h2>
-    <div class="steps">
-      <div class="card step">
-        <span class="num">01 · Apple Watch</span>
-        <h3>It listens.</h3>
-        <p>Wear your watch and live your day. Twicy keeps only the parts where someone is speaking — and with Voice ID on, only the parts that are you.</p>
+    <p class="chapter rv"><b>Twicy</b> + Apple Watch</p>
+    <div class="proofgrid">
+      <div>
+        <p class="kicker rv">Hears it all, all day.</p>
+        <h2 class="big rv d1"><b>12 hours</b> of listening<span><b>55%</b> battery left</span></h2>
+        <p class="note rv d2">Screen off. Listening on.</p>
+        <div class="bars rv d3">
+          <h4>Keeps only the parts where someone is speaking.</h4>
+          <div class="strip" id="strip"></div>
+          <div class="striplegend"><span>08:00</span><span>Speech kept · silence never written</span><span>20:00</span></div>
+        </div>
       </div>
-      <div class="card step">
-        <span class="num">02 · iPhone</span>
-        <h3>It learns your day.</h3>
-        <p>Your iPhone transcribes on device, cleans up what you said, and picks the sentences you'll need again. Each one becomes a card: what you said, and how a native speaker would say it.</p>
+      <div class="watchshot rv d1">
+        <div class="watch"><div class="scr">
+          <div class="ring"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" cx="50" cy="50" r="45"/></svg><div class="c"><b>55%</b><span>remaining</span></div></div>
+          <div class="under">Listened <b>12 hours</b></div>
+        </div></div>
+        <p class="cap">Apple Watch · Twicy test, 4 Nov 2026<br>12 hours of continuous listening, battery 100% → 55%</p>
       </div>
-      <div class="card step">
-        <span class="num">03 · You</span>
-        <h3>You say it.</h3>
-        <p>Look at your own sentence, say it in English. Twicy listens, checks every word, and schedules the next review so it sticks.</p>
-      </div>
+    </div>
+    <div class="proofcards">
+      <div class="pc rv"><div><h3>Only your voice.<span>Other people are dropped, not saved.</span></h3><p>With Voice ID on, each sentence is checked against your voice on your iPhone. What other people said never becomes a card. Your voiceprint never leaves the phone.</p></div><div class="gl"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div></div>
+      <div class="pc rv d1"><div><h3>Nothing extra to carry.<span>Same watch. Same day.</span></h3><p>Put it on and head out. No extra device to charge, no button to remember. Twicy shows on the watch face while it listens, and you can stop it any time.</p></div><div class="gl"><svg viewBox="0 0 24 24"><use href="#watchicon"/></svg></div></div>
     </div>
   </div>
 </section>
 
-<section id="who">
+<!-- ============ SCENES (dark) ============ -->
+<section class="scenes dark" id="day" data-theme="dark">
   <div class="wrap">
-    <p class="eyebrow">Made for</p>
-    <h2>The moments you have to speak.</h2>
+    <div class="top">
+      <div>
+        <p class="eyebrow rv">A day, as you said it.</p>
+        <div class="langs rv d1" id="langs"><button class="on" data-l="ja">日本語</button><button data-l="ko">한국어</button><button data-l="tw">繁體中文</button></div>
+      </div>
+      <div class="clock rv"><span>Your local time</span><b id="clock">--:--</b><button id="now">Return to now ↗</button></div>
+    </div>
+    <div class="scene" id="scene">
+      <p class="when" id="s-when"></p>
+      <p class="native" id="s-said"></p>
+      <p class="en" id="s-en"></p>
+      <p class="why" id="s-why"></p>
+    </div>
+    <div class="scenenav" id="scenenav"></div>
+  </div>
+</section>
+
+<!-- ============ WATCH (dark, interactive) ============ -->
+<section class="wrist dark" id="wrist" data-theme="dark">
+  <div class="halo"></div>
+  <div class="wrap">
+    <h2 class="rv">Said on your wrist.<span>Learned in your hand.</span></h2>
+    <p class="sub rv d1">Listen on the watch. Keep it on your iPhone.</p>
+    <div class="bigwatch rv d2">
+      <div class="watch" id="bw" role="button" tabindex="0" aria-label="Tap to start listening">
+        <div class="scr">
+          <span class="time" id="bw-time">9:41</span>
+          <div class="ring"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" id="bw-ring" cx="50" cy="50" r="45"/></svg><div class="c"><b id="bw-count">0:00</b><span>Today</span></div></div>
+          <div class="dots" id="bw-dots"></div>
+          <span class="st" id="bw-st">Tap to start</span>
+        </div>
+      </div>
+    </div>
+    <p class="hint" id="bw-hint">Tap the watch to explore ↗</p>
+  </div>
+</section>
+
+<!-- ============ STORY (light, pinned phone) ============ -->
+<section class="story light" id="story" data-theme="light">
+  <div class="stg">
+    <div class="head"><span class="chapter"><b>01</b> / Tonight</span><span>From the words you said to the English you'll say</span></div>
+    <div class="storygrid">
+      <div class="stext" id="stext">
+        <div class="sc on"><p class="when">21:40 · Home</p><h3>Tonight, it's waiting for you.<span>Two rings. New, and kept.</span></h3><p>The inner ring is today's new sentences. The outer ring is the ones you learned before and kept today. Learn, Review, or Wander through everything you've said.</p></div>
+        <div class="sc"><p class="when">12:40 · Lunch</p><h3>What you said.<span>How they'd say it.</span></h3><p>Each card is one of your own sentences, with the way a native speaker would naturally say it. Tap it, and Twicy reads it aloud.</p><div class="q" lang="ja">授業のあと、なんか食べに行かない？<small>You said this at 12:40.</small></div></div>
+        <div class="sc"><p class="when">Practice</p><h3>Say it.<span>Every word checked.</span></h3><p>Look at your own sentence and say it in English. Twicy listens on device, lights up each word it hears, and scores the sentence. Then it schedules the next review so it sticks.</p></div>
+        <div class="sc"><p class="when">Timeline</p><h3>Everything you said,<span>by the pause.</span></h3><p>Your whole day, sentence by sentence, in your language and in English. The ones you've learned are filled in. Pick any sentence and learn it tonight.</p></div>
+        <div class="sc"><p class="when">History</p><h3>Every day you kept.<span>Your own forgetting curve.</span></h3><p>A streak, a grid of the days you practiced, and how well your sentences hold up over time. Target: still remembered at 90%.</p></div>
+      </div>
+      <div class="sphone">
+        <div class="phone"><div class="scr" id="screens">
+          <img class="on" src="assets/ja-1-today.png" alt="Today screen" width="690" height="1500">
+          <div class="app" id="card-app">
+            <div class="bar"><span class="x">✕</span><span class="pg"><i style="width:34%"></i></span><span>1/3</span></div>
+            <div class="mid"><p class="tag">12:40 · Lunch</p><p class="ja" lang="ja">授業のあと、なんか食べに行かない？</p><p class="en" id="card-en">Wanna grab food after class?</p><span class="hear">▶ Hear it</span></div>
+          </div>
+          <div class="app" id="prac-app">
+            <div class="bar"><span class="x">✕</span><span class="pg"><i style="width:34%"></i></span><span>1/3</span></div>
+            <div class="mid"><p class="ja" lang="ja">授業のあと、なんか食べに行かない？</p><p class="en" id="prac-en"></p><span class="score" id="prac-score">✓ 5/5 words</span></div>
+            <div class="wave" id="prac-wave"></div>
+            <div class="btns"><span>Forgot<small>2 more</small></span><span>Unsure<small>2 more</small></span><span>Got it<small>1 more</small></span></div>
+          </div>
+          <img src="assets/ja-3-timeline.png" alt="Timeline screen" width="690" height="1500" loading="lazy">
+          <img src="assets/ja-4-history.png" alt="History screen" width="690" height="1500" loading="lazy">
+        </div></div>
+      </div>
+    </div>
+    <p class="sfoot">App preview with sample data · Japanese shown; Korean and Chinese (Taiwan) work the same</p>
+    <div class="sdots" id="sdots"><span class="on">01</span><span>02</span><span>03</span><span>04</span><span>05</span></div>
+  </div>
+</section>
+
+<!-- ============ MADE FOR (light) ============ -->
+<section class="madefor light" id="who" data-theme="light">
+  <div class="wrap">
+    <p class="chapter rv"><b>02</b> / Made for</p>
+    <h2 class="rv d1">The moments you have to speak.<span>Your own sentences are the best answers.</span></h2>
     <div class="who">
-      <div class="card">
-        <h3>IELTS &amp; TOEFL speaking</h3>
-        <p>The speaking test asks about <em>you</em> — your hometown, your work, your weekend. Memorized model answers sound memorized. Your own sentences don't.</p>
-        <div class="q">
-          <div><b>“Do you work or study?”</b> <span class="muted">— you answered that at lunch.</span></div>
-          <div><b>“Describe a place you like to visit.”</b> <span class="muted">— you talked about it on Sunday.</span></div>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Your next trip abroad</h3>
-        <p>Ordering, asking the way, “sorry, I'm running late.” The things you'll need to say abroad are the things you already say every day — in your own language.</p>
-        <div class="q">
-          <div><b>“Could I get this without ice?”</b></div>
-          <div><b>“Is it okay if I sit here?”</b></div>
-        </div>
-      </div>
+      <div class="card rv"><h3>IELTS &amp; TOEFL speaking</h3><p>The speaking test asks about <em>you</em> — your hometown, your work, your weekend. Memorized model answers sound memorized. Your own sentences don't.</p><div class="q"><div><b>“Do you work or study?”</b> <span>— you answered that at lunch.</span></div><div><b>“Describe a place you like to visit.”</b> <span>— you talked about it on Sunday.</span></div></div></div>
+      <div class="card rv d1"><h3>Your next trip abroad</h3><p>Ordering, asking the way, “sorry, I'm running late.” The things you'll need to say abroad are the things you already say every day — in your own language.</p><div class="q"><div><b>“Could I get this without ice?”</b></div><div><b>“Is it okay if I sit here?”</b></div></div></div>
     </div>
   </div>
 </section>
 
-<section id="day">
+<!-- ============ WEEK (dark marquee) ============ -->
+<section class="week dark" id="week" data-theme="dark">
   <div class="wrap">
-    <p class="eyebrow">A day with Twicy</p>
-    <h2>What you said → in English.</h2>
-    <div class="tabs" role="tablist">
-      <button role="tab" aria-selected="true" data-day="ja">日本語</button>
-      <button role="tab" aria-selected="false" data-day="ko">한국어</button>
-      <button role="tab" aria-selected="false" data-day="tw">繁體中文</button>
-    </div>
+    <p class="eyebrow rv">What a week sounds like</p>
+    <h2 class="rv d1">No two days say the same thing.</h2>
+  </div>
+  <div class="lanes" id="lanes"></div>
+</section>
 
-    <div class="day on" id="day-ja">
-      <div class="moment"><div class="time">08:10 · Commute</div><div class="said" lang="ja">今日ちょっと遅れるかも、電車止まってる。</div><div class="en">I might be a little late — the trains stopped.</div></div>
-      <div class="moment"><div class="time">12:20 · Lunch</div><div class="said" lang="ja">これ、辛くないやつにできますか？</div><div class="en">Can I get this one not spicy?</div><div class="tag">Useful when traveling</div></div>
-      <div class="moment"><div class="time">15:00 · Work</div><div class="said" lang="ja">その件、確認してからまた連絡します。</div><div class="en">Let me check and get back to you on that.</div></div>
-      <div class="moment"><div class="time">21:30 · Friends</div><div class="said" lang="ja">週末は家でゴロゴロしてることが多いかな。</div><div class="en">I mostly just chill at home on weekends.</div><div class="tag">IELTS Part 1 · Free time</div></div>
+<!-- ============ BUY + FAQ (dark) ============ -->
+<section class="buy dark" id="buy" data-theme="dark">
+  <div class="wrap">
+    <h2 class="rv">Buy once. Know the costs.</h2>
+    <div class="cols">
+      <div class="rv"><h3>$9.99 for Twicy</h3><p>Regularly $19.99, Twicy is $9.99 during launch week. One purchase, no subscription. Listening, transcription, Voice ID, practice scoring and review scheduling all run on your devices and cost nothing extra.</p></div>
+      <div class="rv d1"><h3>AI. Bring your own key.</h3><p>Turning your day into cards uses the AI provider you choose — OpenAI, Google Gemini, DeepSeek, or any OpenAI-compatible service. Only short sentence text is sent, so usage is light. Any fees are charged by that provider, not by Twicy.</p></div>
+      <div class="rv d2"><h3>What is shared with AI?</h3><p>Sentence text only, straight from your iPhone to the provider you picked. No audio, no voiceprint. Twicy has no servers, no account and no analytics, so there is nothing for us to collect.</p></div>
     </div>
-
-    <div class="day" id="day-ko">
-      <div class="moment"><div class="time">08:30 · Café</div><div class="said" lang="ko">아이스 아메리카노 하나, 연하게 주세요.</div><div class="en">One iced Americano, a little weaker, please.</div><div class="tag">Useful when traveling</div></div>
-      <div class="moment"><div class="time">11:00 · Work</div><div class="said" lang="ko">이거 내일까지 끝내기는 좀 어려울 것 같아요.</div><div class="en">I don't think I can finish this by tomorrow.</div></div>
-      <div class="moment"><div class="time">13:10 · Lunch</div><div class="said" lang="ko">우리 동네는 조용해서 살기 좋아요.</div><div class="en">My neighborhood's quiet, so it's a nice place to live.</div><div class="tag">IELTS Part 1 · Hometown</div></div>
-      <div class="moment"><div class="time">22:00 · Home</div><div class="said" lang="ko">오늘 진짜 피곤하다, 일찍 자야겠어.</div><div class="en">I'm so tired today. I should sleep early.</div></div>
-    </div>
-
-    <div class="day" id="day-tw">
-      <div class="moment"><div class="time">09:00 · Office</div><div class="said" lang="zh-Hant-TW">我等一下要開會，晚點再回你。</div><div class="en">I've got a meeting in a bit — I'll get back to you later.</div></div>
-      <div class="moment"><div class="time">12:30 · Lunch</div><div class="said" lang="zh-Hant-TW">這個可以幫我外帶嗎？</div><div class="en">Could I get this to go?</div><div class="tag">Useful when traveling</div></div>
-      <div class="moment"><div class="time">18:40 · MRT</div><div class="said" lang="zh-Hant-TW">不好意思，請問這班車有到台北車站嗎？</div><div class="en">Excuse me, does this train go to Taipei Main Station?</div><div class="tag">Useful when traveling</div></div>
-      <div class="moment"><div class="time">21:15 · Friends</div><div class="said" lang="zh-Hant-TW">我最近迷上爬山，每個週末都會去。</div><div class="en">I've been really into hiking lately. I go every weekend.</div><div class="tag">IELTS Part 2 · A hobby</div></div>
-    </div>
+    <p class="req rv">Requires an iPhone with iOS 26 and a paired Apple Watch. Price and requirements are subject to the App Store listing.</p>
   </div>
 </section>
 
-<section class="privacy" id="privacy">
+<section class="faq dark" id="faq" data-theme="dark">
   <div class="wrap">
-    <p class="eyebrow">Privacy</p>
-    <h2>We don't even have servers.</h2>
-    <p class="lead" style="margin:20px auto 0">There's no Twicy account and nothing for us to collect. Your day stays on your iPhone and Apple Watch.</p>
-    <div class="facts">
-      <div class="card"><h3>Audio never leaves your devices.</h3><p>Recordings go from Apple Watch to iPhone directly, not through iCloud. Transcription runs on your iPhone.</p></div>
-      <div class="card"><h3>Only your voice.</h3><p>With Voice ID on, sentences spoken by other people are dropped, not saved. Your voiceprint stays on your iPhone.</p></div>
-      <div class="card"><h3>Your AI, your key.</h3><p>Twicy uses your own AI provider key, kept in the iPhone Keychain. Only sentence text is sent — straight to the provider you chose.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="numbers">
-  <div class="wrap">
-    <p class="eyebrow">In numbers</p>
-    <h2>Built to last the day.</h2>
-    <!-- 只放实测过的数字（RELEASE.md A8）。练一句几秒、一个月占多少空间测完再加。 -->
-    <div class="nums">
-      <div class="num-card"><div class="big">12 h</div><p>of listening, 55% battery left</p></div>
-      <div class="num-card"><div class="big">10</div><p>of your own sentences to learn each day</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="price" id="price">
-  <div class="wrap">
-    <p class="eyebrow">Price</p>
-    <h2>Pay once. Keep it.</h2>
-    <div class="card">
-      <div class="now">$9.99</div>
-      <p class="was">Regular price <s>$19.99</s></p>
-      <span class="pill">Launch week · 50% off</span>
-      <p class="once">One-time purchase, no subscription.</p>
-      <!-- launch: href="{{APP_STORE_URL}}?ct=site_price", text "Download on the App Store" -->
-  <a class="btn" href="#price"><svg><use href="#apple"/></svg>Coming soon to the App Store</a>
-    </div>
-  </div>
-</section>
-
-<section id="faq">
-  <div class="wrap">
-    <p class="eyebrow">FAQ</p>
-    <h2>Questions.</h2>
+    <h2 class="rv">Questions.</h2>
     <details><summary>Do I need an Apple Watch?</summary><p>Yes — Apple Watch is what hears your day. Without one you can still open Twicy and try the full flow with sample data (Settings → Load sample data), but your own sentences come from the watch.</p></details>
     <details><summary>Which languages does it support?</summary><p>You learn English. Your own language can be Japanese, Korean, or Chinese (Taiwan). The app itself is in English.</p></details>
     <details><summary>Why do I need an AI key? What does it cost?</summary><p>Twicy has no servers, so it doesn't resell AI. You connect your own key from OpenAI, Google Gemini, DeepSeek, or any OpenAI-compatible provider. Twicy only sends short sentence text, so usage is light — check your provider's pricing for exact costs. You pay them directly; we never see the key.</p></details>
@@ -294,18 +600,210 @@ footer a+a{margin-left:18px}
   </div>
 </section>
 
-<footer>
+<footer class="dark" data-theme="dark">
   <div class="wrap">
-    <span>© 2026 Twicy</span>
-    <span><a href="privacy.html">Privacy</a><a href="support.html">Support</a></span>
+    <div class="ftop">
+      <a class="brand" href="#top"><svg><use href="#mark"/></svg>Twicy</a>
+      <p class="line">Learn English with what you say.</p>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Twicy</span>
+      <div class="links"><a href="#faq">FAQ</a><a href="privacy.html">Privacy</a><a href="support.html">Support</a>
+        <!-- launch: href="{{APP_STORE_URL}}?ct=site_footer" -->
+        <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small>Coming soon</small><b>App Store</b></span></a>
+        <a href="#top">Back to top ↑</a></div>
+    </div>
   </div>
 </footer>
 
 <script>
-document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
-  document.querySelectorAll('.day').forEach(d => d.classList.toggle('on', d.id === 'day-' + b.dataset.day));
-}));
+(() => {
+const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const clamp = (v,a=0,b=1) => Math.max(a, Math.min(b, v));
+const smooth = t => { t = clamp(t); return t*t*(3-2*t); };
+const lerp = (a,b,t) => a+(b-a)*t;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- nav theme + reveal ---------- */
+const themed = $$('[data-theme]');
+const navTheme = () => { let t='dark'; const y=scrollY+40; for (const s of themed) if (s.offsetTop <= y) t = s.dataset.theme; document.documentElement.dataset.nav = t; };
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -10% 0px'});
+$$('.rv, .strip, .watchshot').forEach(el => io.observe(el));
+
+/* ---------- quote-mark geometry (same as the app) ---------- */
+const CX=[378,646], CY=430, R=112, BOUNDS={x:266,y:318,w:492,h:380};
+function glyphPath(cx, s, ox, oy){ // scaled by s, offset so BOUNDS maps to (ox,oy)
+  const X=v=>ox+(v-BOUNDS.x)*s, Y=v=>oy+(v-BOUNDS.y)*s;
+  const p=new Path2D();
+  p.moveTo(X(cx+R),Y(CY)); p.quadraticCurveTo(X(cx+R),Y(CY+190),X(cx-52),Y(CY+268)); p.quadraticCurveTo(X(cx+30),Y(CY+170),X(cx-6),Y(CY+R));
+  p.arc(X(cx),Y(CY),R*s,Math.atan2(R,-6),Math.PI*2,false); p.closePath(); return p;
+}
+
+/* ---------- hero particle field ---------- */
+const cv=$('#field'), ctx=cv.getContext('2d');
+let W=0,H=0,pts=[],mx=0,my=0,tmx=0,tmy=0,t0=performance.now(),fieldAlpha=1,morph=0,running=true;
+function gauss(){ let u=0,v=0; while(!u)u=Math.random(); while(!v)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function build(){
+  const dpr=Math.min(devicePixelRatio||1,2); W=cv.clientWidth; H=cv.clientHeight; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+  const n = W<720 ? 1500 : 3200;
+  // logo targets
+  const lh = Math.min(W*0.26, H*0.30), s = lh/BOUNDS.h, lw = BOUNDS.w*s, ox=(W-lw)/2, oy=H*0.44-lh/2;
+  const paths=[glyphPath(CX[0],s,ox,oy), glyphPath(CX[1],s,ox,oy)];
+  const targets=[]; let guard=0; ctx.save(); ctx.setTransform(1,0,0,1,0,0);
+  while(targets.length<n && guard++<n*40){ const x=ox+Math.random()*lw, y=oy+Math.random()*lh; for(let g=0;g<2;g++) if(ctx.isPointInPath(paths[g],x,y)){ targets.push({x,y,g}); break; } }
+  ctx.restore();
+  for(let i=targets.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [targets[i],targets[j]]=[targets[j],targets[i]]; }
+  pts=[]; for(let i=0;i<n;i++){ const u=Math.random()*1.12-0.06, band=Math.random()<.62?0:1, g=gauss(); const tg=targets[i%targets.length]||{x:W/2,y:H/2,g:1};
+    pts.push({u,band,g,a:.25+.75*Math.random()*Math.random(),s:Math.random()<.85?1:1.6,d:Math.random(),ph:Math.random()*6.28,sp:.3+Math.random()*.7,tx:tg.x,ty:tg.y,tg:tg.g}); }
+}
+function wave(p,t){
+  const x = p.u*W + Math.sin(t*.25*p.sp+p.ph)*6;
+  const base = p.band===0 ? H*0.40 : H*0.56;
+  const amp = p.band===0 ? H*0.10 : H*0.07;
+  const y = base + amp*Math.sin(p.u*5.2 + t*.35 + p.band*1.7) + H*0.035*Math.sin(p.u*12.5 - t*.5 + p.ph) + p.g*H*0.035*(0.45+0.55*Math.abs(Math.sin(p.u*7+p.band)));
+  return [x + mx*16*(1+p.band*.6), y + my*10];
+}
+function draw(now){
+  if(!running) return;
+  const t = reduce ? 0 : (now-t0)/1000;
+  mx=lerp(mx,tmx,.04); my=lerp(my,tmy,.04);
+  ctx.clearRect(0,0,W,H);
+  for(const p of pts){
+    const m = smooth((morph - p.d*.4)/.6);
+    let x,y;
+    if(m<=0){ [x,y]=wave(p,t); } else if(m>=1){ x=p.tx+Math.sin(t*.8+p.ph)*.6; y=p.ty+Math.cos(t*.7+p.ph)*.6; } else { const [wx,wy]=wave(p,t); x=lerp(wx,p.tx,m); y=lerp(wy,p.ty,m); }
+    const dim = p.tg===0 ? lerp(1,.42,m) : 1;
+    const a = p.a*dim*fieldAlpha*(m>0?1:(.5+.5*Math.sin(t*1.3*p.sp+p.ph*3))*.6+.4);
+    ctx.fillStyle=`rgba(241,242,238,${a})`; ctx.fillRect(x,y,p.s,p.s);
+  }
+  requestAnimationFrame(draw);
+}
+addEventListener('mousemove', e => { tmx = e.clientX/innerWidth*2-1; tmy = e.clientY/innerHeight*2-1; }, {passive:true});
+new IntersectionObserver(es => { const on = es[0].isIntersecting; if(on && !running){ running=true; requestAnimationFrame(draw);} if(!on) running=false; }).observe($('#stage'));
+
+/* ---------- hero chapters (scroll driven) ---------- */
+const hero=$('#top'), L=[$('#l0'),$('#l1'),null,$('#l3')], glow=$('#glow'), tabs=$$('#tabs button'), hint=$('#hint'), rows=$$('#rows .row');
+const P = { copyOut:[.18,.25], sigIn:[.25,.31], sigDraw:[.30,.50], sigOut:[.52,.58], mark:[.56,.70], prodIn:[.74,.84] };
+function setLayer(el, o, dy){ if(!el) return; el.style.opacity=o; el.style.transform=`translateY(${dy}px)`; el.classList.toggle('on', o>.5); }
+let heroP=-1;
+function heroTick(){
+  const r=hero.getBoundingClientRect(), p=clamp(-r.top/(hero.offsetHeight-innerHeight));
+  if(p===heroP) return; heroP=p;
+  const o0 = 1-smooth((p-P.copyOut[0])/(P.copyOut[1]-P.copyOut[0])); setLayer(L[0], o0, (1-o0)*-30);
+  const i1 = smooth((p-P.sigIn[0])/(P.sigIn[1]-P.sigIn[0])), x1 = smooth((p-P.sigOut[0])/(P.sigOut[1]-P.sigOut[0])); setLayer(L[1], Math.min(i1,1-x1), (1-i1)*24 + x1*-30);
+  const d = clamp((p-P.sigDraw[0])/(P.sigDraw[1]-P.sigDraw[0])); drawSignals(d);
+  morph = smooth((p-P.mark[0])/(P.mark[1]-P.mark[0]));
+  const i3 = smooth((p-P.prodIn[0])/(P.prodIn[1]-P.prodIn[0])); setLayer(L[3], i3, (1-i3)*30);
+  fieldAlpha = lerp(1,.45,i1*(1-x1)) * lerp(1,.22,i3);
+  glow.style.opacity = morph*(1-i3*.6); glow.style.transform=`translate(-50%,-50%) scale(${.8+morph*.4+i3*.5})`;
+  const ch = p<P.sigIn[0]?0 : p<P.mark[0]?1 : 2; tabs.forEach((b,i)=>b.classList.toggle('on',i===ch));
+  hint.style.transform=`translateY(${p*233}%)`;
+}
+tabs.forEach(b => b.addEventListener('click', () => { const f=[0,.28,.78][+b.dataset.go]; scrollTo({top: hero.offsetTop + f*(hero.offsetHeight-innerHeight)+2, behavior: reduce?'auto':'smooth'}); }));
+
+/* signal lines */
+const sig = {};
+function makeSignals(){
+  $$('#rows svg.line').forEach(svg => {
+    const k=svg.dataset.kind, Wd=Math.max(200,svg.clientWidth||600), sx=Wd/600; let ghost='', main='', dots='';
+    svg.setAttribute('viewBox',`0 0 ${Wd} 60`);
+    const pt=(x,y)=>`${(x*sx).toFixed(1)} ${y.toFixed(1)}`;
+    if(k==='voice'){ let d='M'; const bursts=[[60,1],[250,1.3],[520,.9]]; for(let x=0;x<=600;x+=3){ let a=2.2; for(const [c,s] of bursts) a+= s*8*Math.exp(-(((x-c)/38)**2)); const y=30+Math.sin(x*.9)*a*(.6+.4*Math.sin(x*.21))*Math.cos(x*.07); d+=(x?'L':'')+pt(x,y); } main=d; }
+    if(k==='picked'){ ghost=`M0 30 L${Wd} 30`; main=`M0 30 L${Wd} 30`; for(let i=0;i<10;i++){ const x=(40+i*57)*sx; dots+=`<circle class="dot" cx="${x.toFixed(1)}" cy="30" r="2.6" data-i="${i}"/>`; } }
+    if(k==='words'){ let d='M0 50'; const n=5; for(let i=0;i<n;i++){ const x0=i*120, x1=x0+120, y=50-(i+1)*8; d+=` L${pt(x0,y)} L${pt(x1,y)}`; } main=d; ghost=`M0 50 L${Wd} 50`; }
+    if(k==='fsrs'){ ghost=`M0 30 L${Wd} 30`; main=`M0 30 L${Wd} 30`; const xs=[20,70,150,290,500]; xs.forEach((x,i)=>{ dots+=`<circle class="dot" cx="${(x*sx).toFixed(1)}" cy="30" r="${2.4+i*.5}" data-i="${i}"/>`; }); }
+    svg.innerHTML = (ghost?`<path class="ghost" d="${ghost}"/>`:'') + `<path class="main" d="${main}"/>` + dots;
+    const m=svg.querySelector('.main'), len=m.getTotalLength(); m.style.strokeDasharray=len; m.style.strokeDashoffset=len;
+    sig[k]={m,len,dots:[...svg.querySelectorAll('.dot')]};
+  });
+}
+function drawSignals(d){
+  rows.forEach((r,i)=>{ const dd=clamp((d-i*.18)/.55); r.classList.toggle('on', dd>0); const k=r.querySelector('svg.line').dataset.kind, s=sig[k]; if(!s) return; s.m.style.strokeDashoffset = s.len*(1-dd); s.dots.forEach((c,j)=>{ c.style.opacity = dd > (j+1)/(s.dots.length+1) ? 1 : 0; }); });
+}
+
+/* ---------- proof strip ---------- */
+(function(){ const st=$('#strip'); const segs=[[2,3],[7,2],[11,1.5],[15,4],[22,2],[27,3],[33,5],[41,2],[46,3],[52,6],[61,2],[66,4],[73,2],[79,5],[87,3],[92,2],[96,2.5]]; st.insertAdjacentHTML('beforeend', segs.map(([x,w],i)=>`<i style="left:${x}%;width:${w}%;transition-delay:${i*40}ms"></i>`).join('')); })();
+
+/* ---------- scenes ---------- */
+const DAYS = {
+  ja:{lang:'ja',scenes:[
+    {h:8, time:'08:10',place:'Commute',said:'今日ちょっと遅れるかも、電車止まってる。',en:'I might be a little late — the trains stopped.',why:'<b>Said once on the platform.</b> Learned tonight, ready for the next time it happens in English.'},
+    {h:12,time:'12:20',place:'Lunch',said:'これ、辛くないやつにできますか？',en:'Can I get this one not spicy?',why:'<b>Useful when traveling.</b> You ordered it in Japanese today; you\'ll order it in English abroad.'},
+    {h:15,time:'15:00',place:'Work',said:'その件、確認してからまた連絡します。',en:'Let me check and get back to you on that.',why:'<b>Work.</b> The sentence you say ten times a week is the one worth saying well.'},
+    {h:21,time:'21:30',place:'Friends',said:'週末は家でゴロゴロしてることが多いかな。',en:'I mostly just chill at home on weekends.',why:'<b>IELTS Part 1 · Free time.</b> The examiner asks about your weekend. You already answered it tonight.'}]},
+  ko:{lang:'ko',scenes:[
+    {h:8, time:'08:30',place:'Café',said:'아이스 아메리카노 하나, 연하게 주세요.',en:'One iced Americano, a little weaker, please.',why:'<b>Useful when traveling.</b> Your morning order, in the language of the next café abroad.'},
+    {h:11,time:'11:00',place:'Work',said:'이거 내일까지 끝내기는 좀 어려울 것 같아요.',en:"I don't think I can finish this by tomorrow.",why:'<b>Work.</b> Saying no politely is the hardest sentence in any language.'},
+    {h:13,time:'13:10',place:'Lunch',said:'우리 동네는 조용해서 살기 좋아요.',en:"My neighborhood's quiet, so it's a nice place to live.",why:'<b>IELTS Part 1 · Hometown.</b> You described it to a friend at lunch. Tonight you say it in English.'},
+    {h:22,time:'22:00',place:'Home',said:'오늘 진짜 피곤하다, 일찍 자야겠어.',en:"I'm so tired today. I should sleep early.",why:'<b>Home.</b> Small talk is made of sentences like this one.'}]},
+  tw:{lang:'zh-Hant-TW',scenes:[
+    {h:9, time:'09:00',place:'Office',said:'我等一下要開會，晚點再回你。',en:"I've got a meeting in a bit — I'll get back to you later.",why:'<b>Work.</b> Said in the hallway, learned on the sofa.'},
+    {h:12,time:'12:30',place:'Lunch',said:'這個可以幫我外帶嗎？',en:'Could I get this to go?',why:'<b>Useful when traveling.</b> The sentence you\'ll need in every airport café.'},
+    {h:18,time:'18:40',place:'MRT',said:'不好意思，請問這班車有到台北車站嗎？',en:'Excuse me, does this train go to Taipei Main Station?',why:'<b>Useful when traveling.</b> Swap the station, keep the sentence.'},
+    {h:21,time:'21:15',place:'Friends',said:'我最近迷上爬山，每個週末都會去。',en:"I've been really into hiking lately. I go every weekend.",why:'<b>IELTS Part 2 · A hobby.</b> Two minutes about something you love: you already said it to a friend.'}]}
+};
+let lang='ja', si=0, timer=null; const DUR=6500;
+const sceneEl=$('#scene'), snav=$('#scenenav');
+function renderNav(){ snav.innerHTML = DAYS[lang].scenes.map((s,i)=>`<button data-i="${i}" style="--dur:${DUR}ms"><i></i><b>0${i+1}</b>${s.place}</button>`).join(''); $$('button',snav).forEach(b=>b.addEventListener('click',()=>show(+b.dataset.i,true))); }
+function show(i, manual){
+  si=i; const s=DAYS[lang].scenes[i];
+  sceneEl.classList.add('swap');
+  setTimeout(()=>{ $('#s-when').textContent=`${s.time} / ${s.place}`; const sd=$('#s-said'); sd.textContent=s.said; sd.lang=DAYS[lang].lang; $('#s-en').textContent=s.en; $('#s-why').innerHTML=s.why; sceneEl.classList.remove('swap'); }, reduce?0:260);
+  $$('button',snav).forEach((b,j)=>{ b.classList.remove('on'); if(j===i){ void b.offsetWidth; b.classList.add('on'); } });
+  clearTimeout(timer); if(!reduce) timer=setTimeout(()=>show((si+1)%4), DUR);
+}
+function nearestNow(){ const h=new Date().getHours()+new Date().getMinutes()/60; let best=0,bd=99; DAYS[lang].scenes.forEach((s,i)=>{ const d=Math.abs(s.h-h); if(d<bd){bd=d;best=i;} }); return best; }
+$$('#langs button').forEach(b=>b.addEventListener('click',()=>{ $$('#langs button').forEach(x=>x.classList.toggle('on',x===b)); lang=b.dataset.l; renderNav(); show(0); }));
+$('#now').addEventListener('click',()=>show(nearestNow(),true));
+function tickClock(){ const d=new Date(); $('#clock').textContent=`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; } tickClock(); setInterval(tickClock,15000);
+renderNav();
+new IntersectionObserver(es=>{ if(es[0].isIntersecting){ show(nearestNow()); } else { clearTimeout(timer); } },{threshold:.3}).observe(sceneEl);
+
+/* ---------- interactive watch ---------- */
+(function(){
+  const w=$('#bw'), ring=$('#bw-ring'), count=$('#bw-count'), st=$('#bw-st'), dots=$('#bw-dots'), sec=$('#wrist'), hintEl=$('#bw-hint');
+  dots.innerHTML = Array.from({length:40},()=>'<i></i>').join(''); const ds=$$('i',dots);
+  let on=false, start=0, raf=0;
+  function frame(now){ const el=(now-start)/1000; const m=Math.floor(el/60), s=Math.floor(el%60); count.textContent=`${m}:${String(s).padStart(2,'0')}`; ring.style.strokeDashoffset=283*(1-((el%60)/60)); ds.forEach((d,i)=>{ const v=.6+Math.abs(Math.sin(now/180+i*.55))*(1.5+Math.sin(now/900+i)*1.2); d.style.transform=`scaleY(${v})`; d.style.background=`rgba(255,255,255,${.3+Math.min(.7,v/4)})`; }); raf=requestAnimationFrame(frame); }
+  function toggle(){ on=!on; sec.classList.toggle('live',on); if(on){ start=performance.now(); st.textContent='Listening'; hintEl.textContent='Tap again to stop · it keeps only the parts where someone is speaking'; raf=requestAnimationFrame(frame); } else { cancelAnimationFrame(raf); st.textContent='Tap to start'; hintEl.textContent='Tap the watch to explore ↗'; ds.forEach(d=>{d.style.transform='';d.style.background='';}); } }
+  w.addEventListener('click',toggle); w.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+  const d=new Date(); $('#bw-time').textContent=`${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}`;
+})();
+
+/* ---------- story (pinned phone) ---------- */
+const story=$('#story'), scs=$$('#stext .sc'), screens=$$('#screens > *'), sdots=$$('#sdots span'), phone=$('.sphone .phone');
+const pracEn=$('#prac-en'), pracScore=$('#prac-score'), pracWave=$('#prac-wave'), cardEn=$('#card-en');
+const WORDS='Wanna grab food after class?'.split(' '); pracEn.innerHTML=WORDS.map(w=>`<span class="wd">${w}</span>`).join(' ');
+pracWave.innerHTML=Array.from({length:28},()=>'<i></i>').join(''); const pw=$$('i',pracWave);
+let cur=-1, pracT=[], waveRaf=0;
+function pracPlay(){ pracStop(); const wds=$$('.wd',pracEn); wds.forEach(w=>w.classList.remove('on')); pracScore.classList.remove('on'); if(reduce){ wds.forEach(w=>w.classList.add('on')); pracScore.classList.add('on'); return; }
+  let t0=performance.now(); const loop=now=>{ pw.forEach((b,i)=>{ b.style.height=`${20+Math.abs(Math.sin(now/120+i*.6))*70*(0.5+0.5*Math.sin(i/4))}%`; }); waveRaf=requestAnimationFrame(loop); }; waveRaf=requestAnimationFrame(loop);
+  wds.forEach((w,i)=>pracT.push(setTimeout(()=>w.classList.add('on'), 900+i*380)));
+  pracT.push(setTimeout(()=>{ pracScore.classList.add('on'); cancelAnimationFrame(waveRaf); pw.forEach(b=>b.style.height='20%'); }, 900+WORDS.length*380+500));
+  pracT.push(setTimeout(pracPlay, 6500));
+}
+function pracStop(){ pracT.forEach(clearTimeout); pracT=[]; cancelAnimationFrame(waveRaf); }
+function setChapter(i){ if(i===cur) return; cur=i; scs.forEach((s,j)=>s.classList.toggle('on',j===i)); screens.forEach((s,j)=>s.classList.toggle('on',j===i)); sdots.forEach((s,j)=>s.classList.toggle('on',j===i)); $('.story .head .chapter b').textContent='0'+(i+1);
+  if(i===2) pracPlay(); else pracStop();
+  if(i===1){ cardEn.style.opacity=0; setTimeout(()=>cardEn.style.opacity=1, 700); }
+}
+let storyP=-1;
+function storyTick(){ const r=story.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return; const p=clamp(-r.top/(story.offsetHeight-innerHeight)); if(p===storyP) return; storyP=p; setChapter(Math.min(4, Math.floor(p*5.0001))); phone.style.transform=`rotate(${(p-.5)*-4}deg) translateY(${Math.sin(p*Math.PI*5)*4}px)`; }
+setChapter(0);
+
+/* ---------- week lanes ---------- */
+const ALL=[]; for(const k in DAYS) DAYS[k].scenes.forEach(s=>ALL.push({...s,lang:DAYS[k].lang}));
+ALL.push({time:'07:50',place:'Home',said:'今日まじで疲れた…',en:'Today totally wiped me out.',lang:'ja'},{time:'08:26',place:'Friends',said:'さっき撮った写真、送って！',en:'Send me that pic you took earlier.',lang:'ja'},{time:'12:40',place:'Lunch',said:'授業のあと、なんか食べに行かない？',en:'Wanna grab food after class?',lang:'ja'},{time:'19:12',place:'Friends',said:'週末、どっか行かない？',en:'Wanna go somewhere this weekend?',lang:'ja'},{time:'19:42',place:'Friends',said:'ごめん、ちょっと遅れるかも',en:'Sorry, I might be a little late.',lang:'ja'});
+const card=s=>`<div class="mc"><span class="t">${s.time} · ${s.place}</span><span class="e">${s.en}</span><span class="s" lang="${s.lang}">${s.said}</span></div>`;
+const lanes=$('#lanes'); [[0,70,''],[1,88,'rev'],[2,76,'']].forEach(([k,t,rev])=>{ const items=ALL.filter((_,i)=>i%3===k); const html=items.map(card).join(''); lanes.insertAdjacentHTML('beforeend',`<div class="lane ${rev}" style="--t:${t}s">${html}${html}</div>`); });
+
+/* ---------- main loop ---------- */
+let ticking=false;
+function onScroll(){ if(ticking) return; ticking=true; requestAnimationFrame(()=>{ heroTick(); storyTick(); navTheme(); ticking=false; }); }
+addEventListener('scroll', onScroll, {passive:true});
+let rz; addEventListener('resize', ()=>{ clearTimeout(rz); rz=setTimeout(()=>{ build(); makeSignals(); heroP=-1; storyP=-1; onScroll(); }, 120); });
+makeSignals(); build(); requestAnimationFrame(draw); onScroll(); setTimeout(onScroll, 50);
+})();
 </script>
 </body>
 </html>
