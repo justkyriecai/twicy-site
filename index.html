@@ -95,7 +95,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:5
 .facts p{color:var(--muted);margin-top:8px}
 
 /* numbers */
-.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.nums{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
 @media (max-width:820px){.nums{grid-template-columns:1fr 1fr}}
 .num-card{background:var(--surface);border-radius:var(--radius);padding:28px}
 .num-card .big{font-size:clamp(34px,5vw,48px);font-weight:700;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
@@ -254,17 +254,14 @@ footer a+a{margin-left:18px}
   </div>
 </section>
 
-<!-- launch: remove `hidden` once RELEASE.md A8 numbers are in -->
-<section id="numbers" hidden>
+<section id="numbers">
   <div class="wrap">
     <p class="eyebrow">In numbers</p>
     <h2>Built to last the day.</h2>
-    <!-- Fill from RELEASE.md A8 (a full day on a real watch). Do not publish with placeholders. -->
+    <!-- 只放实测过的数字（RELEASE.md A8）。练一句几秒、一个月占多少空间测完再加。 -->
     <div class="nums">
-      <div class="num-card"><div class="big">{{HOURS}} h</div><p>of listening, {{BATTERY_LEFT}}% battery left</p></div>
-      <div class="num-card"><div class="big">{{SENTENCES}}</div><p>sentences picked for you a day</p></div>
-      <div class="num-card"><div class="big">{{SECONDS}} s</div><p>to practice one sentence</p></div>
-      <div class="num-card"><div class="big">{{STORAGE}}</div><p>of storage for a month</p></div>
+      <div class="num-card"><div class="big">12 h</div><p>of listening, 55% battery left</p></div>
+      <div class="num-card"><div class="big">10</div><p>of your own sentences to learn each day</p></div>
     </div>
   </div>
 </section>
