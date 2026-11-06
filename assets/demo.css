@@ -1,0 +1,148 @@
+/* The hero's second layer: an Apple Watch and an iPhone that play out one day (assets/demo.js).
+   Everything inside #dstage is laid out in stage units and scaled as one piece, so the Watch, the iPhone and the
+   pixels drawn over them always line up. */
+
+.demo{padding:72px clamp(16px,4vw,48px) 70px;align-items:stretch;justify-content:stretch;text-align:left}
+.dwrap{flex:1;min-height:0;width:100%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(250px,330px) 1fr;gap:clamp(16px,3vw,48px);align-items:center}
+.dtext h2{margin-top:16px;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:-.035em;line-height:1.08}
+.dtext h2 span{display:block;color:var(--dim)}
+
+.steps{list-style:none;margin-top:clamp(18px,4.5vh,40px);display:grid}
+.steps button{position:relative;display:grid;grid-template-columns:30px 1fr;width:100%;padding:13px 0 15px;text-align:left;opacity:.38;transition:opacity .45s var(--ease)}
+.steps button:hover{opacity:.7}
+.steps li.on button{opacity:1}
+.steps em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--faint);padding-top:5px}
+.steps strong{font-size:18px;font-weight:600;letter-spacing:-.015em}
+.steps .d,.steps .n{grid-column:2;font-size:13.5px;line-height:1.45;color:var(--dim);margin-top:3px}
+.steps .n{font-size:12.5px;color:var(--faint);margin-top:2px}
+.steps .n:empty{display:none}
+.steps .bar{position:absolute;left:30px;right:0;bottom:0;height:1px;background:var(--line);overflow:hidden}
+.steps .bar b{position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(0)}
+.dnow{display:none}
+
+.dctl{display:flex;align-items:center;gap:14px;margin-top:22px;flex-wrap:wrap}
+.langs{display:flex;padding:3px;border:1px solid var(--line);border-radius:999px}
+.langs button{font-size:12px;padding:5px 11px;border-radius:999px;color:var(--dim);transition:background .3s,color .3s}
+.langs button:hover{color:var(--text)}
+.langs button.on{background:rgba(255,255,255,.12);color:var(--text)}
+.snd{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim);padding:6px 4px}
+.snd:hover{color:var(--text)}
+.snd svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.snd .on{display:none}.snd[aria-pressed=true] .on{display:inline}.snd[aria-pressed=true] .off{display:none}
+.snd[aria-pressed=true]{color:var(--text)}
+
+.dstage{position:relative;height:100%;min-height:0}
+.sbox{position:absolute;left:0;top:0;transform-origin:0 0}
+.sbox canvas{position:absolute;left:0;top:0;pointer-events:none}
+.sbox .bloom{filter:blur(5px);mix-blend-mode:screen;opacity:.85}
+
+/* ---------- Watch: drawn at its own size (a 452 × 532 case), scaled into the stage ---------- */
+.dw{position:absolute;width:0;height:0}
+.dw>*{position:absolute}
+.dw .band{left:-165px;width:330px;height:460px;background:linear-gradient(90deg,#070708,#18191b 14%,#222326 42%,#1d1e20 70%,#0c0c0d)}
+.dw .band::after{content:"";position:absolute;inset:0;border-radius:inherit;background:repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 2px,transparent 2px 6px)}
+.dw .band.t{top:-686px;border-radius:60px 60px 30px 30px;-webkit-mask-image:linear-gradient(to top,#000 35%,transparent 96%);mask-image:linear-gradient(to top,#000 35%,transparent 96%)}
+.dw .band.b{top:226px;border-radius:30px 30px 60px 60px;-webkit-mask-image:linear-gradient(to bottom,#000 35%,transparent 96%);mask-image:linear-gradient(to bottom,#000 35%,transparent 96%)}
+.dw .crown{left:220px;top:-148px;width:30px;height:96px;border-radius:10px;background:repeating-linear-gradient(0deg,#1b1c1e 0 3px,#4a4b4f 3px 5px);box-shadow:inset -6px 0 8px rgba(0,0,0,.6),inset 3px 0 4px rgba(255,255,255,.15)}
+.dw .side{left:222px;top:2px;width:14px;height:128px;border-radius:7px;background:linear-gradient(90deg,#1a1b1d,#4c4d51 55%,#18191b)}
+.dw .case{left:-226px;top:-266px;width:452px;height:532px;border-radius:124px;background:linear-gradient(155deg,#55565a,#1f2022 18%,#0b0b0c 46%,#1a1b1d 74%,#4b4c50);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16),inset 0 3px 2px rgba(255,255,255,.22),inset 0 -4px 8px rgba(0,0,0,.8),0 70px 120px rgba(0,0,0,.8),0 24px 48px rgba(0,0,0,.6)}
+.dw .glass{left:-212px;top:-252px;width:424px;height:504px;border-radius:112px;background:#000;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+.dw .glass::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%)}
+.dw .scr{position:absolute;left:12px;top:12px;width:400px;height:480px;border-radius:100px;overflow:hidden;color:#fff;font-family:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.dw .scr>*{position:absolute}
+.dw .clk{right:40px;top:30px;font-size:34px;font-weight:600}
+.dw .ring{left:0;top:0}
+.dw .tmr{left:0;width:400px;top:160px;text-align:center;font-size:46px;font-weight:400;letter-spacing:-.02em}
+.dw .tdy{left:0;width:400px;top:226px;text-align:center;font-size:20px;font-weight:500;color:#8e8e93}
+.dw .lst{left:0;width:400px;top:405px;text-align:center;font-size:29px;font-weight:500;color:#8e8e93}
+.dw .hit{left:-226px;top:-266px;width:452px;height:532px;border-radius:124px;cursor:pointer}
+
+/* ---------- What you said: bubbles above the Watch ---------- */
+.bub{position:absolute;left:0;top:0;height:50px;max-width:440px;padding:8px 14px 0 12px;border-radius:16px;background:rgba(28,28,30,.82);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 12px 30px rgba(0,0,0,.4);white-space:nowrap;transform-origin:20% 100%}
+.bub .bt{display:block;font-size:10px;letter-spacing:.04em;color:rgba(241,242,238,.42);font-variant-numeric:tabular-nums;line-height:13px}
+.bub .bs{display:inline-block;font-size:15px;line-height:22px;color:#c7c7cc;font-weight:400}
+
+/* ---------- iPhone: 300 × 628, the screen is 288 × 616 ---------- */
+.dp{position:absolute;width:300px;height:628px}
+.dp .fr{position:absolute;inset:0;border-radius:58px;background:linear-gradient(140deg,#e6e6e9,#8e8e93 18%,#d4d4d8 38%,#6c6c71 60%,#c9c9cd 82%,#f2f2f4);box-shadow:0 60px 110px rgba(0,0,0,.72),0 20px 44px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.5)}
+.dp .bz{position:absolute;inset:3px;border-radius:55px;background:#050505}
+.dp .pb{position:absolute;left:-2px;width:4px;border-radius:2px;background:linear-gradient(90deg,#6e6e73,#c7c7cc)}
+.dp .pscr{position:absolute;left:6px;top:6px;width:288px;height:616px;border-radius:50px;overflow:hidden;background:#f5f5f7;color:#000;font-family:system-ui,-apple-system,"SF Pro Text",Inter,sans-serif;font-variant-numeric:tabular-nums}
+.pscr *{position:absolute}
+.pscr .stt{left:34px;top:15px;font-size:12.5px;font-weight:600}
+.pscr .sti{left:212px;top:18px}
+.pscr .isl{left:99px;top:9px;width:90px;height:26px;border-radius:99px;background:#000}
+.pscr .hd{left:14px;top:50px;display:flex;align-items:center;gap:7px;position:absolute;font-family:ui-rounded,"SF Pro Rounded",system-ui,sans-serif;font-weight:700;font-size:22px;letter-spacing:-.02em}
+.pscr .hd *{position:static}
+.pscr .hd svg{width:22px;height:17px}
+.pscr .dt{left:15px;top:82px;font-size:14px;font-weight:600}
+.pscr .dt span{position:static;color:#8e8e93;font-weight:400}
+.pscr .card{left:12px;width:264px;border-radius:20px;background:#fff;box-shadow:0 10px 26px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+.pscr .rc{top:108px;height:136px}
+.pscr .rings{left:10px;top:10px}
+.pscr .pill{left:108px;width:144px;height:26px;border-radius:99px;background:#efeff0;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:11.5px;font-weight:600;color:#1c1c1e}
+.pscr .pill *{position:static}
+.pscr .pill i{display:inline-block;width:5px;height:5px;background:#b0b0b4;margin-right:7px;vertical-align:1px}
+.pscr .pill.learn{top:12px;background:#000;color:#fff}
+.pscr .pill.learn i{background:#fff}
+.pscr .pill.rev{top:44px;color:#8e8e93}
+.pscr .pill.wan{top:76px}
+.pscr .rc .ln{left:12px;right:0;top:108px;height:1px;background:#e5e5e7}
+.pscr .live{left:14px;top:116px;font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+.pscr .live *{position:static}
+.pscr .eq{position:relative!important;width:9px;height:9px}
+.pscr .eq i{position:absolute!important;width:2.2px;height:2.2px;background:#000}
+.pscr .ago{right:14px;top:117px;font-size:11px;color:#8e8e93}
+.pscr .lh{left:15px;font-size:15px;font-weight:700}
+.pscr .lh span{position:static;color:#8e8e93;font-weight:500}
+.pscr .rw{left:0;width:264px;height:54px;overflow:hidden}
+.pscr .rw::before{content:"";position:absolute;left:36px;right:0;top:0;height:1px;background:#ececee;opacity:var(--sep,1)}
+.pscr .rw.first::before{display:none}
+.pscr .ic{left:14px;top:21px;width:12px;height:12px;border-radius:99px;border:1.6px solid #8e8e93;box-sizing:border-box;overflow:hidden}
+.pscr .ic::after{content:"";position:absolute;left:0;top:0;width:4.4px;height:9px;background:#8e8e93;opacity:var(--half,0)}
+.pscr .ic.done{border-color:#000;background:#000}
+.pscr .ic.done::after{display:none}
+.pscr .ic.done svg{position:absolute;left:0;top:0}
+.pscr .sk{left:36px;top:23px;height:8px;border-radius:4px;background:#ececee}
+.pscr .nb{left:36px;top:17px;font-weight:500;color:#1c1c1e;white-space:nowrap;line-height:20px}
+.pscr .en{left:36px;top:9px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;line-height:18px}
+.pscr .na{left:36px;top:30px;font-weight:400;color:#8e8e93;white-space:nowrap;line-height:14px}
+.pscr .tab{left:54px;top:556px;width:180px;height:42px;border-radius:99px;background:rgba(255,255,255,.92);box-shadow:0 8px 24px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.05)}
+.pscr .tab i{left:3px;top:3px;width:60px;height:36px;border-radius:99px;background:#ececee}
+.pscr .tab svg{top:11px}
+.pscr .tap{width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:99px;background:rgba(255,255,255,.5);mix-blend-mode:difference;opacity:0}
+.pscr .dim{inset:0;background:#000;pointer-events:none}
+
+/* The practice screen, presented over Today */
+.pscr .sheet{left:0;top:0;width:288px;height:616px;background:#000;color:#fff;border-radius:34px 34px 0 0;transform:translateY(616px)}
+.sheet .sx{left:22px;top:52px;font-size:20px;line-height:20px;color:#8e8e93;font-weight:300}
+.sheet .se{left:0;width:288px;top:56px;text-align:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#636366}
+.sheet .sn{left:16px;width:256px;top:150px;text-align:center;font-size:13.5px;line-height:20px;color:#8e8e93;white-space:nowrap}
+.sheet .sw{left:14px;width:260px;top:182px;text-align:center;font-size:25px;line-height:36px;font-weight:600;letter-spacing:-.025em}
+.sheet .sw *{position:relative}
+.sheet .wd{display:inline-block;margin:0 .13em;color:#3a3a3c}
+.sheet .ck{position:absolute;left:0;right:0;top:33px;height:4px;background:repeating-linear-gradient(90deg,#fff 0 3px,transparent 3px 4.5px);clip-path:inset(0 100% 0 0)}
+.sheet .sm{left:0;width:288px;top:292px;text-align:center;font-size:11.5px;color:#8e8e93}
+.sheet .sm *{position:static}
+.sheet .sm b{color:#fff;font-weight:600}
+
+/* ---------- Small screens: steps on top, the stage underneath ---------- */
+@media (max-width:820px){
+  .demo{padding:64px 16px 58px}
+  .dwrap{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:12px;align-items:stretch}
+  .dtext .chapter{display:none}
+  .dtext h2{margin-top:0;font-size:clamp(24px,7vw,32px)}
+  .dtext h2 span{display:inline}
+  .steps{grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+  .steps button{grid-template-columns:1fr;padding:6px 0 9px}
+  .steps em{display:none}
+  .steps strong{font-size:14px}
+  .steps .d,.steps .n{display:none}
+  .steps .bar{left:0}
+  .dnow{display:block;margin-top:8px;font-size:13px;line-height:1.4;color:var(--dim);min-height:2.8em}
+  .dnow span{display:block;color:var(--faint);font-size:12px}
+  .dctl{margin-top:6px;gap:10px;flex-wrap:nowrap}
+  .snd span{display:none}
+  .langs button{padding:4px 9px;font-size:11.5px}
+}
+@media (max-height:740px) and (min-width:821px){.steps button{padding:9px 0 11px}.steps .n{display:none}}

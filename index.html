@@ -77,7 +77,7 @@ nav ul a:hover{opacity:.7}
 @media (max-width:720px){nav ul{display:none}}
 
 /* ---------- hero ---------- */
-.hero{position:relative;height:480vh}
+.hero{position:relative;height:620vh}
 .stage{position:sticky;top:0;height:100svh;min-height:600px;overflow:hidden;background:#050607}
 #field{position:absolute;inset:0;width:100%;height:100%}
 .glow{position:absolute;left:50%;top:44%;width:min(70vw,760px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.16),rgba(255,255,255,.05) 40%,transparent 70%);opacity:0;pointer-events:none;filter:blur(10px)}
@@ -117,28 +117,7 @@ nav ul a:hover{opacity:.7}
 .scrollhint i{position:absolute;left:0;right:0;top:0;height:30%;background:#fff;border-radius:2px;transform:translateY(0)}
 @media (max-width:720px){.scrollhint{display:none}}
 
-/* layer 1: signals */
-.signals{align-items:stretch;text-align:left;justify-content:center}
-.sigwrap{width:100%;max-width:1120px;margin:0 auto}
-.signals .chapter{margin-bottom:22px}
-.signals h2{font-size:clamp(26px,3.6vw,44px);font-weight:500;letter-spacing:-.03em;line-height:1.15}
-.signals h2 span{display:block;color:var(--dim)}
-.signals h2 svg{display:inline-block;width:.6em;height:.5em;vertical-align:-.02em;margin-left:.15em}
-.rows{margin-top:clamp(18px,4vh,44px);display:grid;gap:clamp(8px,2vh,18px)}
-.row{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:center;opacity:0;transform:translateX(-10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.row.on{opacity:1;transform:none}
-.row .lab b{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;letter-spacing:-.01em}
-.row .lab b svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;opacity:.6}
-.row .lab span{display:block;font-size:12px;color:var(--faint);margin-top:3px}
-.row svg.line{width:100%;height:64px;display:block;overflow:visible}
-.row svg.line path{fill:none;stroke:rgba(241,242,238,.85);stroke-width:1.1}
-.row svg.line .dot{fill:#fff}
-.row svg.line .ghost{stroke:var(--ghost)}
-.row .ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:4px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
-.row .ticks span{display:flex;gap:6px}
-.row .ticks i{font-style:normal;color:var(--dim)}
-@media (max-width:720px){.row .ticks{font-size:9.5px}.row{grid-template-columns:1fr;gap:6px}.row svg.line{height:44px}.signals{padding-top:64px;justify-content:flex-start}.row .ticks span:nth-child(2){display:none}}
-@media (max-height:700px){.row svg.line{height:40px}.rows{gap:6px}}
+/* layer 1: the demo lives in assets/demo.css */
 
 /* layer 3: product */
 .product{justify-content:center}
@@ -365,6 +344,7 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 .fbot a:hover{color:var(--text)}
 .fbot .store{padding:6px 12px 6px 10px}.fbot .store b{font-size:15px}.fbot .store small{font-size:9px}
 </style>
+<link rel="stylesheet" href="assets/demo.css">
 </head>
 <body class="dark">
 
@@ -411,17 +391,24 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
       <p class="servers">We don't even have servers.</p>
     </div>
 
-    <!-- 1 · Learn -->
-    <div class="layer signals" id="l1">
-      <div class="sigwrap">
-        <p class="chapter"><b>Twicy</b> + Apple Watch</p>
-        <h2>The best speaking textbook?<span>You already wrote it<svg><use href="#mark"/></svg></span></h2>
-        <div class="rows" id="rows">
-          <div class="row"><div class="lab"><b>Said <svg viewBox="0 0 24 24"><path d="M4 12h2M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></b><span>What you said, all day</span></div><div><svg class="line" data-kind="voice"></svg><div class="ticks"><span><i>08:10</i>Commute</span><span><i>12:20</i>Lunch</span><span><i>21:30</i>Friends</span></div></div></div>
-          <div class="row"><div class="lab"><b>Picked <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/></svg></b><span>Ten you'll say again</span></div><div><svg class="line" data-kind="picked"></svg><div class="ticks"><span><i>10</i>sentences a day</span><span>yours to set</span><span><i>→</i>cards, with the native way to say it</span></div></div></div>
-          <div class="row"><div class="lab"><b>Said in English <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></b><span>Every word checked</span></div><div><svg class="line" data-kind="words"></svg><div class="ticks"><span>Wanna</span><span>grab</span><span>food</span><span>after</span><span>class?</span><span><i>5/5</i></span></div></div></div>
-          <div class="row"><div class="lab"><b>Kept <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 0 8 8"/><path d="M12 8v4l3 2"/></svg></b><span>Reviewed until it sticks</span></div><div><svg class="line" data-kind="fsrs"></svg><div class="ticks"><span><i>1d</i></span><span><i>3d</i></span><span><i>7d</i></span><span><i>16d</i></span><span><i>35d</i></span><span>FSRS</span></div></div></div>
+    <!-- 1 · Learn: a Watch and an iPhone you can play with (assets/demo.js) -->
+    <div class="layer demo" id="l1">
+      <div class="dwrap">
+        <div class="dtext">
+          <p class="chapter"><b>Twicy</b> + Apple Watch</p>
+          <h2>Your day, <span>in English tonight.</span></h2>
+          <ol class="steps" id="dsteps">
+            <li><button data-step="0"><em>01</em><strong>Wear it</strong><span class="d">Your Watch listens all day, only when someone is talking.</span><span class="n" data-k="wear"></span><i class="bar"><b></b></i></button></li>
+            <li><button data-step="1"><em>02</em><strong>Read it</strong><span class="d">Tonight, everything you said becomes natural English.</span><span class="n" data-k="read"></span><i class="bar"><b></b></i></button></li>
+            <li><button data-step="2"><em>03</em><strong>Say it</strong><span class="d">Say it out loud. Every word is checked, until it&#8217;s yours.</span><span class="n" data-k="say"></span><i class="bar"><b></b></i></button></li>
+          </ol>
+          <p class="dnow" id="dnow"></p>
+          <div class="dctl">
+            <div class="langs" id="dlangs" role="group" aria-label="Your language"><button data-l="ja" lang="ja">日本語</button><button data-l="ko" lang="ko">한국어</button><button data-l="tc" lang="zh-Hant-TW">繁體中文</button></div>
+            <button class="snd" id="dsnd" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="on" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg><span>Sound</span></button>
+          </div>
         </div>
+        <div class="dstage" id="dstage" role="img" aria-label="The Apple Watch hears three things you said today. Tonight the iPhone turns them into English. You say one out loud and every word is checked."></div>
       </div>
     </div>
 
@@ -616,6 +603,7 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
   </div>
 </footer>
 
+<script src="assets/demo.js"></script>
 <script>
 (() => {
 const $ = (s, r=document) => r.querySelector(s), $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -682,8 +670,8 @@ addEventListener('mousemove', e => { tmx = e.clientX/innerWidth*2-1; tmy = e.cli
 new IntersectionObserver(es => { const on = es[0].isIntersecting; if(on && !running){ running=true; requestAnimationFrame(draw);} if(!on) running=false; }).observe($('#stage'));
 
 /* ---------- hero chapters (scroll driven) ---------- */
-const hero=$('#top'), L=[$('#l0'),$('#l1'),null,$('#l3')], glow=$('#glow'), tabs=$$('#tabs button'), hint=$('#hint'), rows=$$('#rows .row');
-const P = { copyOut:[.18,.25], sigIn:[.25,.31], sigDraw:[.30,.50], sigOut:[.52,.58], mark:[.56,.70], prodIn:[.74,.84] };
+const hero=$('#top'), L=[$('#l0'),$('#l1'),null,$('#l3')], glow=$('#glow'), tabs=$$('#tabs button'), hint=$('#hint');
+const P = { copyOut:[.14,.2], sigIn:[.2,.25], sigOut:[.64,.69], mark:[.68,.78], prodIn:[.82,.9] };
 function setLayer(el, o, dy){ if(!el) return; el.style.opacity=o; el.style.transform=`translateY(${dy}px)`; el.classList.toggle('on', o>.5); }
 let heroP=-1;
 function heroTick(){
@@ -691,7 +679,7 @@ function heroTick(){
   if(p===heroP) return; heroP=p;
   const o0 = 1-smooth((p-P.copyOut[0])/(P.copyOut[1]-P.copyOut[0])); setLayer(L[0], o0, (1-o0)*-30);
   const i1 = smooth((p-P.sigIn[0])/(P.sigIn[1]-P.sigIn[0])), x1 = smooth((p-P.sigOut[0])/(P.sigOut[1]-P.sigOut[0])); setLayer(L[1], Math.min(i1,1-x1), (1-i1)*24 + x1*-30);
-  const d = clamp((p-P.sigDraw[0])/(P.sigDraw[1]-P.sigDraw[0])); drawSignals(d);
+  window.twicyDemo?.visible(Math.min(i1,1-x1));
   morph = smooth((p-P.mark[0])/(P.mark[1]-P.mark[0]));
   const i3 = smooth((p-P.prodIn[0])/(P.prodIn[1]-P.prodIn[0])); setLayer(L[3], i3, (1-i3)*30);
   fieldAlpha = lerp(1,.45,i1*(1-x1)) * lerp(1,.22,i3);
@@ -699,27 +687,7 @@ function heroTick(){
   const ch = p<P.sigIn[0]?0 : p<P.mark[0]?1 : 2; tabs.forEach((b,i)=>b.classList.toggle('on',i===ch));
   hint.style.transform=`translateY(${p*233}%)`;
 }
-tabs.forEach(b => b.addEventListener('click', () => { const f=[0,.28,.78][+b.dataset.go]; scrollTo({top: hero.offsetTop + f*(hero.offsetHeight-innerHeight)+2, behavior: reduce?'auto':'smooth'}); }));
-
-/* signal lines */
-const sig = {};
-function makeSignals(){
-  $$('#rows svg.line').forEach(svg => {
-    const k=svg.dataset.kind, Wd=Math.max(200,svg.clientWidth||600), sx=Wd/600; let ghost='', main='', dots='';
-    svg.setAttribute('viewBox',`0 0 ${Wd} 60`);
-    const pt=(x,y)=>`${(x*sx).toFixed(1)} ${y.toFixed(1)}`;
-    if(k==='voice'){ let d='M'; const bursts=[[60,1],[250,1.3],[520,.9]]; for(let x=0;x<=600;x+=3){ let a=2.2; for(const [c,s] of bursts) a+= s*8*Math.exp(-(((x-c)/38)**2)); const y=30+Math.sin(x*.9)*a*(.6+.4*Math.sin(x*.21))*Math.cos(x*.07); d+=(x?'L':'')+pt(x,y); } main=d; }
-    if(k==='picked'){ ghost=`M0 30 L${Wd} 30`; main=`M0 30 L${Wd} 30`; for(let i=0;i<10;i++){ const x=(40+i*57)*sx; dots+=`<circle class="dot" cx="${x.toFixed(1)}" cy="30" r="2.6" data-i="${i}"/>`; } }
-    if(k==='words'){ let d='M0 50'; const n=5; for(let i=0;i<n;i++){ const x0=i*120, x1=x0+120, y=50-(i+1)*8; d+=` L${pt(x0,y)} L${pt(x1,y)}`; } main=d; ghost=`M0 50 L${Wd} 50`; }
-    if(k==='fsrs'){ ghost=`M0 30 L${Wd} 30`; main=`M0 30 L${Wd} 30`; const xs=[20,70,150,290,500]; xs.forEach((x,i)=>{ dots+=`<circle class="dot" cx="${(x*sx).toFixed(1)}" cy="30" r="${2.4+i*.5}" data-i="${i}"/>`; }); }
-    svg.innerHTML = (ghost?`<path class="ghost" d="${ghost}"/>`:'') + `<path class="main" d="${main}"/>` + dots;
-    const m=svg.querySelector('.main'), len=m.getTotalLength(); m.style.strokeDasharray=len; m.style.strokeDashoffset=len;
-    sig[k]={m,len,dots:[...svg.querySelectorAll('.dot')]};
-  });
-}
-function drawSignals(d){
-  rows.forEach((r,i)=>{ const dd=clamp((d-i*.18)/.55); r.classList.toggle('on', dd>0); const k=r.querySelector('svg.line').dataset.kind, s=sig[k]; if(!s) return; s.m.style.strokeDashoffset = s.len*(1-dd); s.dots.forEach((c,j)=>{ c.style.opacity = dd > (j+1)/(s.dots.length+1) ? 1 : 0; }); });
-}
+tabs.forEach(b => b.addEventListener('click', () => { const f=[0,.26,.86][+b.dataset.go]; scrollTo({top: hero.offsetTop + f*(hero.offsetHeight-innerHeight)+2, behavior: reduce?'auto':'smooth'}); }));
 
 /* ---------- proof strip ---------- */
 (function(){ const st=$('#strip'); const segs=[[2,3],[7,2],[11,1.5],[15,4],[22,2],[27,3],[33,5],[41,2],[46,3],[52,6],[61,2],[66,4],[73,2],[79,5],[87,3],[92,2],[96,2.5]]; st.insertAdjacentHTML('beforeend', segs.map(([x,w],i)=>`<i style="left:${x}%;width:${w}%;transition-delay:${i*40}ms"></i>`).join('')); })();
@@ -801,8 +769,8 @@ const lanes=$('#lanes'); [[0,70,''],[1,88,'rev'],[2,76,'']].forEach(([k,t,rev])=
 let ticking=false;
 function onScroll(){ if(ticking) return; ticking=true; requestAnimationFrame(()=>{ heroTick(); storyTick(); navTheme(); ticking=false; }); }
 addEventListener('scroll', onScroll, {passive:true});
-let rz; addEventListener('resize', ()=>{ clearTimeout(rz); rz=setTimeout(()=>{ build(); makeSignals(); heroP=-1; storyP=-1; onScroll(); }, 120); });
-makeSignals(); build(); requestAnimationFrame(draw); onScroll(); setTimeout(onScroll, 50);
+let rz; addEventListener('resize', ()=>{ clearTimeout(rz); rz=setTimeout(()=>{ build(); heroP=-1; storyP=-1; onScroll(); }, 120); });
+build(); requestAnimationFrame(draw); onScroll(); setTimeout(onScroll, 50);
 })();
 </script>
 </body>
