@@ -3,16 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Twicy — Learn English with what you say</title>
-<meta name="description" content="Your Apple Watch hears what you say all day. Twicy turns your own sentences into English you can say out loud — for IELTS and TOEFL speaking, and for your next trip abroad.">
-<meta property="og:title" content="Twicy — The best speaking textbook? You already wrote it.">
-<meta property="og:description" content="Your Apple Watch hears what you say all day. Twicy teaches you to say it in English.">
+<title data-i18n="meta.title">Twicy — Learn English with what you say</title>
+<meta data-i18n-attr="content:meta.desc" name="description" content="Your Apple Watch hears what you say all day. Twicy turns your own sentences into English you can say out loud — for IELTS and TOEFL speaking, and for your next trip abroad.">
+<meta data-i18n-attr="content:meta.ogTitle" property="og:title" content="Twicy — The best speaking textbook? You already wrote it.">
+<meta data-i18n-attr="content:meta.ogDesc" property="og:description" content="Your Apple Watch hears what you say all day. Twicy teaches you to say it in English.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#050607">
+<link rel="canonical" href="https://twicy.kyriecai.me/">
+<link rel="alternate" hreflang="en" href="https://twicy.kyriecai.me/">
+<link rel="alternate" hreflang="ja" href="https://twicy.kyriecai.me/ja/">
+<link rel="alternate" hreflang="ko" href="https://twicy.kyriecai.me/ko/">
+<link rel="alternate" hreflang="zh-Hant-TW" href="https://twicy.kyriecai.me/zh-tw/">
+<link rel="alternate" hreflang="x-default" href="https://twicy.kyriecai.me/">
+<script>
+// First visit to the English page from a Japanese, Korean or Taiwanese browser: go to that language's page.
+// A language picked in the menu wins over the browser's (twicy-site-lang).
+(function(){try{
+  if(document.documentElement.lang!=='en') return;
+  var to={ja:'/ja/',ko:'/ko/',tc:'/zh-tw/'}, l=localStorage.getItem('twicy-site-lang');
+  if(!l){ var n=((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase();
+    l=n.indexOf('ja')===0?'ja':n.indexOf('ko')===0?'ko':/^zh-(tw|hant|hk|mo)/.test(n)?'tc':'en'; }
+  if(to[l]) location.replace(to[l]+location.search+location.hash);
+}catch(e){}})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+KR:wght@400;500&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ---------- tokens ---------- */
 :root{
@@ -343,6 +360,27 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 .fbot a{text-decoration:none;color:var(--dim);white-space:nowrap}
 .fbot a:hover{color:var(--text)}
 .fbot .store{padding:6px 12px 6px 10px}.fbot .store b{font-size:15px}.fbot .store small{font-size:9px}
+
+/* ---------- languages ---------- */
+html[lang=ja]{--font:Inter,"Noto Sans JP","Hiragino Sans",system-ui,sans-serif}
+html[lang=ko]{--font:Inter,"Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif}
+html[lang=zh-Hant-TW]{--font:Inter,"Noto Sans TC","PingFang TC",system-ui,sans-serif}
+html[lang=ja] body{word-break:auto-phrase;line-break:strict}
+html[lang=ko] body{word-break:keep-all}
+html:not([lang=en]) :is(h1,h2,h3,h4){letter-spacing:-.01em;line-height:1.28;text-wrap:balance}
+html:not([lang=en]) p{text-wrap:pretty}
+html:not([lang=en]) .steps .n,html:not([lang=en]) .dnow span{display:none}
+.lsw{position:relative;font-size:13px;font-weight:500}
+.lsw summary{list-style:none;display:flex;align-items:center;gap:6px;cursor:pointer;padding:6px 4px;opacity:.85}
+.lsw summary::-webkit-details-marker{display:none}
+.lsw summary:hover{opacity:1}
+.lsw svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5}
+.lsw div{position:absolute;right:0;top:calc(100% + 8px);min-width:140px;padding:6px;border-radius:14px;background:rgba(20,21,23,.96);color:#f1f2ee;border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 40px rgba(0,0,0,.45);display:grid}
+.lsw a{padding:8px 12px;border-radius:9px;text-decoration:none;font-size:13.5px}
+.lsw a:hover{background:rgba(255,255,255,.08)}
+.lsw a[aria-current]{background:rgba(255,255,255,.12)}
+nav .wrap>.navcta{margin-left:auto}
+nav .wrap{gap:14px}
 </style>
 <link rel="stylesheet" href="assets/demo.css">
 </head>
@@ -361,9 +399,12 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 <nav>
   <div class="wrap">
     <a class="brand" href="#top"><svg><use href="#mark"/></svg>Twicy</a>
-    <ul><li><a href="#faq">FAQ</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="support.html">Support</a></li></ul>
+    <ul><li><a data-i18n="nav.faq" href="#faq">FAQ</a></li><li><a data-i18n="nav.privacy" href="privacy.html">Privacy</a></li><li><a data-i18n="nav.support" href="support.html">Support</a></li></ul>
     <!-- launch: href="{{APP_STORE_URL}}?ct=site_nav", text "Get Twicy" -->
-    <a class="navcta" href="#buy">Coming soon</a>
+    <a data-i18n="nav.cta" class="navcta" href="#buy">Coming soon</a>
+    <details class="lsw"><summary aria-label="Language"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/></svg><span data-i18n="nav.lang">EN</span></summary>
+      <div><a href="/" hreflang="en" lang="en" data-l="en">English</a><a href="/ja/" hreflang="ja" lang="ja" data-l="ja">日本語</a><a href="/ko/" hreflang="ko" lang="ko" data-l="ko">한국어</a><a href="/zh-tw/" hreflang="zh-Hant-TW" lang="zh-Hant-TW" data-l="tc">繁體中文</a></div>
+    </details>
   </div>
 </nav>
 
@@ -375,20 +416,20 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 
     <!-- 0 · Say -->
     <div class="layer copy on" id="l0">
-      <h1>Turn your <span class="w"><svg><use href="#watchicon"/></svg>Apple Watch</span><br>into your English speaking textbook.</h1>
-      <p class="sub">It hears what you say all day — in <i lang="ja">日本語</i>, <i lang="ko">한국어</i> or <i lang="zh-Hant-TW">繁體中文</i> — and tonight it teaches you to say it in English. Out loud.</p>
-      <p class="sub2"><i>Your</i> sentences. Not a textbook's.</p>
+      <h1 data-i18n="hero.h1">Turn your <span class="w"><svg><use href="#watchicon"/></svg>Apple Watch</span><br>into your English speaking textbook.</h1>
+      <p data-i18n="hero.sub" class="sub">It hears what you say all day — in <i lang="ja">日本語</i>, <i lang="ko">한국어</i> or <i lang="zh-Hant-TW">繁體中文</i> — and tonight it teaches you to say it in English. Out loud.</p>
+      <p data-i18n="hero.sub2" class="sub2"><i>Your</i> sentences. Not a textbook's.</p>
       <div class="cta">
         <!-- launch: href="{{APP_STORE_URL}}?ct=site_hero", small "Download on the", b "App Store" -->
-        <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></a>
-        <div class="price"><div><div style="display:flex;align-items:baseline;gap:10px"><span class="now">$9.99</span><span class="was">$19.99</span></div><small>Launch week · 50% off</small></div></div>
-        <span class="pill"><span>One-time purchase<b>No subscription</b></span></span>
+        <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small data-i18n="store.soon">Coming soon to the</small><b>App Store</b></span></a>
+        <div class="price"><div><div style="display:flex;align-items:baseline;gap:10px"><span class="now">$9.99</span><span class="was">$19.99</span></div><small data-i18n="price.launch">Launch week · 50% off</small></div></div>
+        <span class="pill"><span data-i18n="pill">One-time purchase<b>No subscription</b></span></span>
       </div>
       <div class="facts">
-        <div><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M10 17h4"/></svg><span><b>Almost everything runs on your iPhone</b>Transcription, Voice ID and word-by-word scoring on device. AI through your own key.</span></div>
-        <div><svg viewBox="0 0 24 24"><rect x="3" y="8" width="16" height="9" rx="2"/><path d="M19 11v3h1.5v-3zM6 10.5v4"/></svg><span><b>Built to last the day</b>12 hours of listening on Apple Watch, 55% battery left.</span></div>
+        <div><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M10 17h4"/></svg><span data-i18n="fact.device"><b>Almost everything runs on your iPhone</b>Transcription, Voice ID and word-by-word scoring on device. AI through your own key.</span></div>
+        <div><svg viewBox="0 0 24 24"><rect x="3" y="8" width="16" height="9" rx="2"/><path d="M19 11v3h1.5v-3zM6 10.5v4"/></svg><span data-i18n="fact.battery"><b>Built to last the day</b>12 hours of listening on Apple Watch, 55% battery left.</span></div>
       </div>
-      <p class="servers">We don't even have servers.</p>
+      <p data-i18n="servers" class="servers">We don't even have servers.</p>
     </div>
 
     <!-- 1 · Learn: a Watch and an iPhone you can play with (assets/demo.js) -->
@@ -396,41 +437,41 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
       <div class="dwrap">
         <div class="dtext">
           <p class="chapter"><b>Twicy</b> + Apple Watch</p>
-          <h2>Your day, <span>in English tonight.</span></h2>
+          <h2 data-i18n="demo.h2">Your day, <span>in English tonight.</span></h2>
           <ol class="steps" id="dsteps">
-            <li><button data-step="0"><em>01</em><strong>Wear it</strong><span class="d">Your Watch listens all day, only when someone is talking.</span><span class="n" data-k="wear"></span><i class="bar"><b></b></i></button></li>
-            <li><button data-step="1"><em>02</em><strong>Read it</strong><span class="d">Tonight, everything you said becomes natural English.</span><span class="n" data-k="read"></span><i class="bar"><b></b></i></button></li>
-            <li><button data-step="2"><em>03</em><strong>Say it</strong><span class="d">Say it out loud. Every word is checked, until it&#8217;s yours.</span><span class="n" data-k="say"></span><i class="bar"><b></b></i></button></li>
+            <li><button data-step="0"><em>01</em><strong data-i18n="demo.wear">Wear it</strong><span data-i18n="demo.wearD" class="d">Your Watch listens all day, only when someone is talking.</span><span class="n" data-k="wear"></span><i class="bar"><b></b></i></button></li>
+            <li><button data-step="1"><em>02</em><strong data-i18n="demo.read">Read it</strong><span data-i18n="demo.readD" class="d">Tonight, everything you said becomes natural English.</span><span class="n" data-k="read"></span><i class="bar"><b></b></i></button></li>
+            <li><button data-step="2"><em>03</em><strong data-i18n="demo.say">Say it</strong><span data-i18n="demo.sayD" class="d">Say it out loud. Every word is checked, until it&#8217;s yours.</span><span class="n" data-k="say"></span><i class="bar"><b></b></i></button></li>
           </ol>
           <p class="dnow" id="dnow"></p>
           <div class="dctl">
-            <div class="langs" id="dlangs" role="group" aria-label="Your language"><button data-l="ja" lang="ja">日本語</button><button data-l="ko" lang="ko">한국어</button><button data-l="tc" lang="zh-Hant-TW">繁體中文</button></div>
-            <button class="snd" id="dsnd" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="on" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg><span>Sound</span></button>
+            <div class="langs" id="dlangs" role="group" aria-label="Your language" data-i18n-attr="aria-label:demo.langs"><button data-l="ja" lang="ja">日本語</button><button data-l="ko" lang="ko">한국어</button><button data-l="tc" lang="zh-Hant-TW">繁體中文</button></div>
+            <button class="snd" id="dsnd" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="on" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg><span data-i18n="demo.sound">Sound</span></button>
           </div>
         </div>
-        <div class="dstage" id="dstage" role="img" aria-label="The Apple Watch hears three things you said today. Tonight the iPhone turns them into English. You say one out loud and every word is checked."></div>
+        <div class="dstage" id="dstage" role="img" data-i18n-attr="aria-label:demo.aria" aria-label="The Apple Watch hears three things you said today. Tonight the iPhone turns them into English. You say one out loud and every word is checked."></div>
       </div>
     </div>
 
     <!-- 3 · Twicy -->
     <div class="layer product" id="l3">
       <div class="prod">
-        <div class="side l"><div class="phone"><div class="scr"><img src="assets/ja-1-today.png" alt="Twicy Today screen: two rings, Learn, Review, Wander, and today's sentences" width="690" height="1500" loading="lazy"></div></div></div>
+        <div class="side l"><div class="phone"><div class="scr"><img data-i18n-attr="alt:alt.today" src="assets/ja-1-today.png" alt="Twicy Today screen: two rings, Learn, Review, Wander, and today's sentences" width="690" height="1500" loading="lazy"></div></div></div>
         <div class="mid">
           <svg class="mark"><use href="#mark"/></svg>
           <h2>Twicy</h2>
-          <p>Learn English with what you say.</p>
+          <p data-i18n="tagline">Learn English with what you say.</p>
           <!-- launch: href="{{APP_STORE_URL}}?ct=site_product" -->
-          <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small>Coming soon to the</small><b>App Store</b></span></a>
+          <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small data-i18n="store.soon">Coming soon to the</small><b>App Store</b></span></a>
         </div>
-        <div class="side r"><div class="watch"><div class="scr"><img src="assets/watch-today.png" alt="Twicy on Apple Watch: listening ring" width="416" height="496" loading="lazy"></div></div></div>
+        <div class="side r"><div class="watch"><div class="scr"><img data-i18n-attr="alt:alt.watch" src="assets/watch-today.png" alt="Twicy on Apple Watch: listening ring" width="416" height="496" loading="lazy"></div></div></div>
       </div>
-      <p class="keep">Keep exploring ↓</p>
+      <p data-i18n="keep" class="keep">Keep exploring ↓</p>
     </div>
 
     <div class="chrome">
-      <div class="tabs" id="tabs"><button class="on" data-go="0">Say</button><button data-go="1">Learn</button><button data-go="2">Twicy</button></div>
-      <span class="motto">Your words. Your English.</span>
+      <div class="tabs" id="tabs"><button class="on" data-go="0" data-i18n="tab.say">Say</button><button data-go="1" data-i18n="tab.learn">Learn</button><button data-go="2">Twicy</button></div>
+      <span data-i18n="motto" class="motto">Your words. Your English.</span>
     </div>
     <div class="scrollhint"><i id="hint"></i></div>
   </div>
@@ -442,26 +483,26 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
     <p class="chapter rv"><b>Twicy</b> + Apple Watch</p>
     <div class="proofgrid">
       <div>
-        <p class="kicker rv">Hears it all, all day.</p>
-        <h2 class="big rv d1"><b>12 hours</b> of listening<span><b>55%</b> battery left</span></h2>
-        <p class="note rv d2">Screen off. Listening on.</p>
+        <p data-i18n="proof.kicker" class="kicker rv">Hears it all, all day.</p>
+        <h2 data-i18n="proof.big" class="big rv d1"><b>12 hours</b> of listening<span><b>55%</b> battery left</span></h2>
+        <p data-i18n="proof.note" class="note rv d2">Screen off. Listening on.</p>
         <div class="bars rv d3">
-          <h4>Keeps only the parts where someone is speaking.</h4>
+          <h4 data-i18n="proof.h4">Keeps only the parts where someone is speaking.</h4>
           <div class="strip" id="strip"></div>
-          <div class="striplegend"><span>08:00</span><span>Speech kept · silence never written</span><span>20:00</span></div>
+          <div class="striplegend"><span>08:00</span><span data-i18n="proof.legend">Speech kept · silence never written</span><span>20:00</span></div>
         </div>
       </div>
       <div class="watchshot rv d1">
         <div class="watch"><div class="scr">
-          <div class="ring"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" cx="50" cy="50" r="45"/></svg><div class="c"><b>55%</b><span>remaining</span></div></div>
-          <div class="under">Listened <b>12 hours</b></div>
+          <div class="ring"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" cx="50" cy="50" r="45"/></svg><div class="c"><b>55%</b><span data-i18n="proof.remaining">remaining</span></div></div>
+          <div data-i18n="proof.under" class="under">Listened <b>12 hours</b></div>
         </div></div>
-        <p class="cap">Apple Watch · Twicy test, 4 Nov 2026<br>12 hours of continuous listening, battery 100% → 55%</p>
+        <p data-i18n="proof.cap" class="cap">Apple Watch · Twicy test, 4 Nov 2026<br>12 hours of continuous listening, battery 100% → 55%</p>
       </div>
     </div>
     <div class="proofcards">
-      <div class="pc rv"><div><h3>Only your voice.<span>Other people are dropped, not saved.</span></h3><p>With Voice ID on, each sentence is checked against your voice on your iPhone. What other people said never becomes a card. Your voiceprint never leaves the phone.</p></div><div class="gl"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div></div>
-      <div class="pc rv d1"><div><h3>Nothing extra to carry.<span>Same watch. Same day.</span></h3><p>Put it on and head out. No extra device to charge, no button to remember. Twicy shows on the watch face while it listens, and you can stop it any time.</p></div><div class="gl"><svg viewBox="0 0 24 24"><use href="#watchicon"/></svg></div></div>
+      <div class="pc rv"><div><h3 data-i18n="voice.h">Only your voice.<span>Other people are dropped, not saved.</span></h3><p data-i18n="voice.p">With Voice ID on, each sentence is checked against your voice on your iPhone. What other people said never becomes a card. Your voiceprint never leaves the phone.</p></div><div class="gl"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div></div>
+      <div class="pc rv d1"><div><h3 data-i18n="carry.h">Nothing extra to carry.<span>Same watch. Same day.</span></h3><p data-i18n="carry.p">Put it on and head out. No extra device to charge, no button to remember. Twicy shows on the watch face while it listens, and you can stop it any time.</p></div><div class="gl"><svg viewBox="0 0 24 24"><use href="#watchicon"/></svg></div></div>
     </div>
   </div>
 </section>
@@ -471,10 +512,10 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
   <div class="wrap">
     <div class="top">
       <div>
-        <p class="eyebrow rv">A day, as you said it.</p>
+        <p data-i18n="day.eyebrow" class="eyebrow rv">A day, as you said it.</p>
         <div class="langs rv d1" id="langs"><button class="on" data-l="ja">日本語</button><button data-l="ko">한국어</button><button data-l="tw">繁體中文</button></div>
       </div>
-      <div class="clock rv"><span>Your local time</span><b id="clock">--:--</b><button id="now">Return to now ↗</button></div>
+      <div class="clock rv"><span data-i18n="day.local">Your local time</span><b id="clock">--:--</b><button id="now" data-i18n="day.now">Return to now ↗</button></div>
     </div>
     <div class="scene" id="scene">
       <p class="when" id="s-when"></p>
@@ -490,10 +531,10 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 <section class="wrist dark" id="wrist" data-theme="dark">
   <div class="halo"></div>
   <div class="wrap">
-    <h2 class="rv">Said on your wrist.<span>Learned in your hand.</span></h2>
-    <p class="sub rv d1">Listen on the watch. Keep it on your iPhone.</p>
+    <h2 data-i18n="wrist.h" class="rv">Said on your wrist.<span>Learned in your hand.</span></h2>
+    <p data-i18n="wrist.sub" class="sub rv d1">Listen on the watch. Keep it on your iPhone.</p>
     <div class="bigwatch rv d2">
-      <div class="watch" id="bw" role="button" tabindex="0" aria-label="Tap to start listening">
+      <div class="watch" id="bw" role="button" tabindex="0" aria-label="Tap to start listening" data-i18n-attr="aria-label:wrist.aria">
         <div class="scr">
           <span class="time" id="bw-time">9:41</span>
           <div class="ring"><svg viewBox="0 0 100 100"><circle class="tr" cx="50" cy="50" r="45"/><circle class="pr" id="bw-ring" cx="50" cy="50" r="45"/></svg><div class="c"><b id="bw-count">0:00</b><span>Today</span></div></div>
@@ -502,21 +543,21 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
         </div>
       </div>
     </div>
-    <p class="hint" id="bw-hint">Tap the watch to explore ↗</p>
+    <p data-i18n="wrist.hint" class="hint" id="bw-hint">Tap the watch to explore ↗</p>
   </div>
 </section>
 
 <!-- ============ STORY (light, pinned phone) ============ -->
 <section class="story light" id="story" data-theme="light">
   <div class="stg">
-    <div class="head"><span class="chapter"><b>01</b> / Tonight</span><span>From the words you said to the English you'll say</span></div>
+    <div class="head"><span data-i18n="story.chapter" class="chapter"><b>01</b> / Tonight</span><span data-i18n="story.head">From the words you said to the English you'll say</span></div>
     <div class="storygrid">
       <div class="stext" id="stext">
-        <div class="sc on"><p class="when">21:40 · Home</p><h3>Tonight, it's waiting for you.<span>Two rings. New, and kept.</span></h3><p>The inner ring is today's new sentences. The outer ring is the ones you learned before and kept today. Learn, Review, or Wander through everything you've said.</p></div>
-        <div class="sc"><p class="when">12:40 · Lunch</p><h3>What you said.<span>How they'd say it.</span></h3><p>Each card is one of your own sentences, with the way a native speaker would naturally say it. Tap it, and Twicy reads it aloud.</p><div class="q" lang="ja">授業のあと、なんか食べに行かない？<small>You said this at 12:40.</small></div></div>
-        <div class="sc"><p class="when">Practice</p><h3>Say it.<span>Every word checked.</span></h3><p>Look at your own sentence and say it in English. Twicy listens on device, lights up each word it hears, and scores the sentence. Then it schedules the next review so it sticks.</p></div>
-        <div class="sc"><p class="when">Timeline</p><h3>Everything you said,<span>by the pause.</span></h3><p>Your whole day, sentence by sentence, in your language and in English. The ones you've learned are filled in. Pick any sentence and learn it tonight.</p></div>
-        <div class="sc"><p class="when">History</p><h3>Every day you kept.<span>Your own forgetting curve.</span></h3><p>A streak, a grid of the days you practiced, and how well your sentences hold up over time. Target: still remembered at 90%.</p></div>
+        <div class="sc on"><p data-i18n="story.when1" class="when">21:40 · Home</p><h3 data-i18n="story.h1">Tonight, it's waiting for you.<span>Two rings. New, and kept.</span></h3><p data-i18n="story.p1">The inner ring is today's new sentences. The outer ring is the ones you learned before and kept today. Learn, Review, or Wander through everything you've said.</p></div>
+        <div class="sc"><p data-i18n="story.when2" class="when">12:40 · Lunch</p><h3 data-i18n="story.h2">What you said.<span>How they'd say it.</span></h3><p data-i18n="story.p2">Each card is one of your own sentences, with the way a native speaker would naturally say it. Tap it, and Twicy reads it aloud.</p><div class="q" lang="ja">授業のあと、なんか食べに行かない？<small data-i18n="story.said">You said this at 12:40.</small></div></div>
+        <div class="sc"><p data-i18n="story.when3" class="when">Practice</p><h3 data-i18n="story.h3">Say it.<span>Every word checked.</span></h3><p data-i18n="story.p3">Look at your own sentence and say it in English. Twicy listens on device, lights up each word it hears, and scores the sentence. Then it schedules the next review so it sticks.</p></div>
+        <div class="sc"><p class="when">Timeline</p><h3 data-i18n="story.h4">Everything you said,<span>by the pause.</span></h3><p data-i18n="story.p4">Your whole day, sentence by sentence, in your language and in English. The ones you've learned are filled in. Pick any sentence and learn it tonight.</p></div>
+        <div class="sc"><p class="when">History</p><h3 data-i18n="story.h5">Every day you kept.<span>Your own forgetting curve.</span></h3><p data-i18n="story.p5">A streak, a grid of the days you practiced, and how well your sentences hold up over time. Target: still remembered at 90%.</p></div>
       </div>
       <div class="sphone">
         <div class="phone"><div class="scr" id="screens">
@@ -536,7 +577,7 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
         </div></div>
       </div>
     </div>
-    <p class="sfoot">App preview with sample data · Japanese shown; Korean and Chinese (Taiwan) work the same</p>
+    <p data-i18n="story.foot" class="sfoot">App preview with sample data · Japanese shown; Korean and Chinese (Taiwan) work the same</p>
     <div class="sdots" id="sdots"><span class="on">01</span><span>02</span><span>03</span><span>04</span><span>05</span></div>
   </div>
 </section>
@@ -544,11 +585,11 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 <!-- ============ MADE FOR (light) ============ -->
 <section class="madefor light" id="who" data-theme="light">
   <div class="wrap">
-    <p class="chapter rv"><b>02</b> / Made for</p>
-    <h2 class="rv d1">The moments you have to speak.<span>Your own sentences are the best answers.</span></h2>
+    <p data-i18n="who.chapter" class="chapter rv"><b>02</b> / Made for</p>
+    <h2 data-i18n="who.h" class="rv d1">The moments you have to speak.<span>Your own sentences are the best answers.</span></h2>
     <div class="who">
-      <div class="card rv"><h3>IELTS &amp; TOEFL speaking</h3><p>The speaking test asks about <em>you</em> — your hometown, your work, your weekend. Memorized model answers sound memorized. Your own sentences don't.</p><div class="q"><div><b>“Do you work or study?”</b> <span>— you answered that at lunch.</span></div><div><b>“Describe a place you like to visit.”</b> <span>— you talked about it on Sunday.</span></div></div></div>
-      <div class="card rv d1"><h3>Your next trip abroad</h3><p>Ordering, asking the way, “sorry, I'm running late.” The things you'll need to say abroad are the things you already say every day — in your own language.</p><div class="q"><div><b>“Could I get this without ice?”</b></div><div><b>“Is it okay if I sit here?”</b></div></div></div>
+      <div class="card rv"><h3 data-i18n="who.ielts">IELTS &amp; TOEFL speaking</h3><p data-i18n="who.ieltsP">The speaking test asks about <em>you</em> — your hometown, your work, your weekend. Memorized model answers sound memorized. Your own sentences don't.</p><div class="q" data-i18n="who.ieltsQ"><div><b>“Do you work or study?”</b> <span>— you answered that at lunch.</span></div><div><b>“Describe a place you like to visit.”</b> <span>— you talked about it on Sunday.</span></div></div></div>
+      <div class="card rv d1"><h3 data-i18n="who.trip">Your next trip abroad</h3><p data-i18n="who.tripP">Ordering, asking the way, “sorry, I'm running late.” The things you'll need to say abroad are the things you already say every day — in your own language.</p><div class="q"><div><b>“Could I get this without ice?”</b></div><div><b>“Is it okay if I sit here?”</b></div></div></div>
     </div>
   </div>
 </section>
@@ -556,8 +597,8 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 <!-- ============ WEEK (dark marquee) ============ -->
 <section class="week dark" id="week" data-theme="dark">
   <div class="wrap">
-    <p class="eyebrow rv">What a week sounds like</p>
-    <h2 class="rv d1">No two days say the same thing.</h2>
+    <p data-i18n="week.eyebrow" class="eyebrow rv">What a week sounds like</p>
+    <h2 data-i18n="week.h" class="rv d1">No two days say the same thing.</h2>
   </div>
   <div class="lanes" id="lanes"></div>
 </section>
@@ -565,25 +606,25 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
 <!-- ============ BUY + FAQ (dark) ============ -->
 <section class="buy dark" id="buy" data-theme="dark">
   <div class="wrap">
-    <h2 class="rv">Buy once. Know the costs.</h2>
+    <h2 data-i18n="buy.h" class="rv">Buy once. Know the costs.</h2>
     <div class="cols">
-      <div class="rv"><h3>$9.99 for Twicy</h3><p>Regularly $19.99, Twicy is $9.99 during launch week. One purchase, no subscription. Listening, transcription, Voice ID, practice scoring and review scheduling all run on your devices and cost nothing extra.</p></div>
-      <div class="rv d1"><h3>AI. Bring your own key.</h3><p>Turning your day into cards uses the AI provider you choose — OpenAI, Google Gemini, DeepSeek, or any OpenAI-compatible service. Only short sentence text is sent, so usage is light. Any fees are charged by that provider, not by Twicy.</p></div>
-      <div class="rv d2"><h3>What is shared with AI?</h3><p>Sentence text only, straight from your iPhone to the provider you picked. No audio, no voiceprint. Twicy has no servers, no account and no analytics, so there is nothing for us to collect.</p></div>
+      <div class="rv"><h3 data-i18n="buy.priceH">$9.99 for Twicy</h3><p data-i18n="buy.priceP">Regularly $19.99, Twicy is $9.99 during launch week. One purchase, no subscription. Listening, transcription, Voice ID, practice scoring and review scheduling all run on your devices and cost nothing extra.</p></div>
+      <div class="rv d1"><h3 data-i18n="buy.aiH">AI. Bring your own key.</h3><p data-i18n="buy.aiP">Turning your day into cards uses the AI provider you choose — OpenAI, Google Gemini, DeepSeek, or any OpenAI-compatible service. Only short sentence text is sent, so usage is light. Any fees are charged by that provider, not by Twicy.</p></div>
+      <div class="rv d2"><h3 data-i18n="buy.shareH">What is shared with AI?</h3><p data-i18n="buy.shareP">Sentence text only, straight from your iPhone to the provider you picked. No audio, no voiceprint. Twicy has no servers, no account and no analytics, so there is nothing for us to collect.</p></div>
     </div>
-    <p class="req rv">Requires an iPhone with iOS 26 and a paired Apple Watch. Price and requirements are subject to the App Store listing.</p>
+    <p data-i18n="buy.req" class="req rv">Requires an iPhone with iOS 26 and a paired Apple Watch. Price and requirements are subject to the App Store listing.</p>
   </div>
 </section>
 
 <section class="faq dark" id="faq" data-theme="dark">
   <div class="wrap">
-    <h2 class="rv">Questions.</h2>
-    <details><summary>Do I need an Apple Watch?</summary><p>Yes — Apple Watch is what hears your day. Without one you can still open Twicy and try the full flow with sample data (Settings → Load sample data), but your own sentences come from the watch.</p></details>
-    <details><summary>Which languages does it support?</summary><p>You learn English. Your own language can be Japanese, Korean, or Chinese (Taiwan). The app itself is in English.</p></details>
-    <details><summary>Why do I need an AI key? What does it cost?</summary><p>Twicy has no servers, so it doesn't resell AI. You connect your own key from OpenAI, Google Gemini, DeepSeek, or any OpenAI-compatible provider. Twicy only sends short sentence text, so usage is light — check your provider's pricing for exact costs. You pay them directly; we never see the key.</p></details>
-    <details><summary>Is it recording other people?</summary><p>Your watch keeps only the parts where someone is speaking. With Voice ID on (the default), Twicy checks each sentence against your voice and drops what other people said. Recording is shown on the watch and you can stop it any time.</p></details>
-    <details><summary>Does it work offline?</summary><p>Listening, transcription, and practice run on your devices. Turning your day into cards needs a connection to your AI provider. The first time you use a language, iOS downloads its speech model.</p></details>
-    <details><summary>Is it a subscription?</summary><p>No. One purchase, and it's yours.</p></details>
+    <h2 data-i18n="faq.h" class="rv">Questions.</h2>
+    <details><summary data-i18n="faq.q1">Do I need an Apple Watch?</summary><p data-i18n="faq.a1">Yes — Apple Watch is what hears your day. Without one you can still open Twicy and try the full flow with sample data (Settings → Load sample data), but your own sentences come from the watch.</p></details>
+    <details><summary data-i18n="faq.q2">Which languages does it support?</summary><p data-i18n="faq.a2">You learn English. Your own language can be Japanese, Korean, or Chinese (Taiwan). The app itself is in English.</p></details>
+    <details><summary data-i18n="faq.q3">Why do I need an AI key? What does it cost?</summary><p data-i18n="faq.a3">Twicy has no servers, so it doesn't resell AI. You connect your own key from OpenAI, Google Gemini, DeepSeek, or any OpenAI-compatible provider. Twicy only sends short sentence text, so usage is light — check your provider's pricing for exact costs. You pay them directly; we never see the key.</p></details>
+    <details><summary data-i18n="faq.q4">Is it recording other people?</summary><p data-i18n="faq.a4">Your watch keeps only the parts where someone is speaking. With Voice ID on (the default), Twicy checks each sentence against your voice and drops what other people said. Recording is shown on the watch and you can stop it any time.</p></details>
+    <details><summary data-i18n="faq.q5">Does it work offline?</summary><p data-i18n="faq.a5">Listening, transcription, and practice run on your devices. Turning your day into cards needs a connection to your AI provider. The first time you use a language, iOS downloads its speech model.</p></details>
+    <details><summary data-i18n="faq.q6">Is it a subscription?</summary><p data-i18n="faq.a6">No. One purchase, and it's yours.</p></details>
   </div>
 </section>
 
@@ -591,18 +632,19 @@ footer{padding:clamp(60px,8vw,100px) 0 40px;border-top:1px solid var(--line)}
   <div class="wrap">
     <div class="ftop">
       <a class="brand" href="#top"><svg><use href="#mark"/></svg>Twicy</a>
-      <p class="line">Learn English with what you say.</p>
+      <p class="line" data-i18n="tagline">Learn English with what you say.</p>
     </div>
     <div class="fbot">
       <span>© 2026 Twicy</span>
-      <div class="links"><a href="#faq">FAQ</a><a href="privacy.html">Privacy</a><a href="support.html">Support</a>
+      <div class="links"><a data-i18n="nav.faq" href="#faq">FAQ</a><a data-i18n="nav.privacy" href="privacy.html">Privacy</a><a data-i18n="nav.support" href="support.html">Support</a>
         <!-- launch: href="{{APP_STORE_URL}}?ct=site_footer" -->
-        <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small>Coming soon</small><b>App Store</b></span></a>
-        <a href="#top">Back to top ↑</a></div>
+        <a class="store" href="#buy"><svg><use href="#apple"/></svg><span><small data-i18n="store.soonShort">Coming soon</small><b>App Store</b></span></a>
+        <a data-i18n="footer.top" href="#top">Back to top ↑</a></div>
     </div>
   </div>
 </footer>
 
+<script>window.TWICY_L = {};</script>
 <script src="assets/demo.js"></script>
 <script>
 (() => {
@@ -611,6 +653,13 @@ const clamp = (v,a=0,b=1) => Math.max(a, Math.min(b, v));
 const smooth = t => { t = clamp(t); return t*t*(3-2*t); };
 const lerp = (a,b,t) => a+(b-a)*t;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Strings for this page's language (scripts/build-site); English is what is written here.
+const T = window.TWICY_L || {}, place = p => (T.place && T.place[p]) || p;
+
+/* ---------- language menu ---------- */
+const pageLang = {ja:'ja', ko:'ko', 'zh-Hant-TW':'tc'}[document.documentElement.lang] || 'en';
+$$('.lsw a').forEach(a => { if (a.dataset.l === pageLang) a.setAttribute('aria-current', 'page'); a.addEventListener('click', () => { try { localStorage.setItem('twicy-site-lang', a.dataset.l); } catch (e) {} }); });
+document.addEventListener('click', e => { const d = $('.lsw'); if (d.open && !d.contains(e.target)) d.open = false; });
 
 /* ---------- nav theme + reveal ---------- */
 const themed = $$('[data-theme]');
@@ -710,13 +759,13 @@ const DAYS = {
     {h:18,time:'18:40',place:'MRT',said:'不好意思，請問這班車有到台北車站嗎？',en:'Excuse me, does this train go to Taipei Main Station?',why:'<b>Useful when traveling.</b> Swap the station, keep the sentence.'},
     {h:21,time:'21:15',place:'Friends',said:'我最近迷上爬山，每個週末都會去。',en:"I've been really into hiking lately. I go every weekend.",why:'<b>IELTS Part 2 · A hobby.</b> Two minutes about something you love: you already said it to a friend.'}]}
 };
-let lang='ja', si=0, timer=null; const DUR=6500;
+let lang=T.scene||'ja', si=0, timer=null; $$('#langs button').forEach(b=>b.classList.toggle('on', b.dataset.l===lang)); const DUR=6500;
 const sceneEl=$('#scene'), snav=$('#scenenav');
-function renderNav(){ snav.innerHTML = DAYS[lang].scenes.map((s,i)=>`<button data-i="${i}" style="--dur:${DUR}ms"><i></i><b>0${i+1}</b>${s.place}</button>`).join(''); $$('button',snav).forEach(b=>b.addEventListener('click',()=>show(+b.dataset.i,true))); }
+function renderNav(){ snav.innerHTML = DAYS[lang].scenes.map((s,i)=>`<button data-i="${i}" style="--dur:${DUR}ms"><i></i><b>0${i+1}</b>${place(s.place)}</button>`).join(''); $$('button',snav).forEach(b=>b.addEventListener('click',()=>show(+b.dataset.i,true))); }
 function show(i, manual){
   si=i; const s=DAYS[lang].scenes[i];
   sceneEl.classList.add('swap');
-  setTimeout(()=>{ $('#s-when').textContent=`${s.time} / ${s.place}`; const sd=$('#s-said'); sd.textContent=s.said; sd.lang=DAYS[lang].lang; $('#s-en').textContent=s.en; $('#s-why').innerHTML=s.why; sceneEl.classList.remove('swap'); }, reduce?0:260);
+  setTimeout(()=>{ $('#s-when').textContent=`${s.time} / ${place(s.place)}`; const sd=$('#s-said'); sd.textContent=s.said; sd.lang=DAYS[lang].lang; $('#s-en').textContent=s.en; $('#s-why').innerHTML=(T.why&&T.why[lang]&&T.why[lang][i])||s.why; sceneEl.classList.remove('swap'); }, reduce?0:260);
   $$('button',snav).forEach((b,j)=>{ b.classList.remove('on'); if(j===i){ void b.offsetWidth; b.classList.add('on'); } });
   clearTimeout(timer); if(!reduce) timer=setTimeout(()=>show((si+1)%4), DUR);
 }
@@ -729,11 +778,11 @@ new IntersectionObserver(es=>{ if(es[0].isIntersecting){ show(nearestNow()); } e
 
 /* ---------- interactive watch ---------- */
 (function(){
-  const w=$('#bw'), ring=$('#bw-ring'), count=$('#bw-count'), st=$('#bw-st'), dots=$('#bw-dots'), sec=$('#wrist'), hintEl=$('#bw-hint');
+  const w=$('#bw'), ring=$('#bw-ring'), count=$('#bw-count'), st=$('#bw-st'), dots=$('#bw-dots'), sec=$('#wrist'), hintEl=$('#bw-hint'), hintIdle=hintEl.textContent;
   dots.innerHTML = Array.from({length:40},()=>'<i></i>').join(''); const ds=$$('i',dots);
   let on=false, start=0, raf=0;
   function frame(now){ const el=(now-start)/1000; const m=Math.floor(el/60), s=Math.floor(el%60); count.textContent=`${m}:${String(s).padStart(2,'0')}`; ring.style.strokeDashoffset=283*(1-((el%60)/60)); ds.forEach((d,i)=>{ const v=.6+Math.abs(Math.sin(now/180+i*.55))*(1.5+Math.sin(now/900+i)*1.2); d.style.transform=`scaleY(${v})`; d.style.background=`rgba(255,255,255,${.3+Math.min(.7,v/4)})`; }); raf=requestAnimationFrame(frame); }
-  function toggle(){ on=!on; sec.classList.toggle('live',on); if(on){ start=performance.now(); st.textContent='Listening'; hintEl.textContent='Tap again to stop · it keeps only the parts where someone is speaking'; raf=requestAnimationFrame(frame); } else { cancelAnimationFrame(raf); st.textContent='Tap to start'; hintEl.textContent='Tap the watch to explore ↗'; ds.forEach(d=>{d.style.transform='';d.style.background='';}); } }
+  function toggle(){ on=!on; sec.classList.toggle('live',on); if(on){ start=performance.now(); st.textContent='Listening'; hintEl.textContent=T.hintOn||'Tap again to stop · it keeps only the parts where someone is speaking'; raf=requestAnimationFrame(frame); } else { cancelAnimationFrame(raf); st.textContent='Tap to start'; hintEl.textContent=hintIdle; ds.forEach(d=>{d.style.transform='';d.style.background='';}); } }
   w.addEventListener('click',toggle); w.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
   const d=new Date(); $('#bw-time').textContent=`${d.getHours()%12||12}:${String(d.getMinutes()).padStart(2,'0')}`;
 })();
@@ -762,7 +811,7 @@ setChapter(0);
 /* ---------- week lanes ---------- */
 const ALL=[]; for(const k in DAYS) DAYS[k].scenes.forEach(s=>ALL.push({...s,lang:DAYS[k].lang}));
 ALL.push({time:'07:50',place:'Home',said:'今日まじで疲れた…',en:'Today totally wiped me out.',lang:'ja'},{time:'08:26',place:'Friends',said:'さっき撮った写真、送って！',en:'Send me that pic you took earlier.',lang:'ja'},{time:'12:40',place:'Lunch',said:'授業のあと、なんか食べに行かない？',en:'Wanna grab food after class?',lang:'ja'},{time:'19:12',place:'Friends',said:'週末、どっか行かない？',en:'Wanna go somewhere this weekend?',lang:'ja'},{time:'19:42',place:'Friends',said:'ごめん、ちょっと遅れるかも',en:'Sorry, I might be a little late.',lang:'ja'});
-const card=s=>`<div class="mc"><span class="t">${s.time} · ${s.place}</span><span class="e">${s.en}</span><span class="s" lang="${s.lang}">${s.said}</span></div>`;
+const card=s=>`<div class="mc"><span class="t">${s.time} · ${place(s.place)}</span><span class="e">${s.en}</span><span class="s" lang="${s.lang}">${s.said}</span></div>`;
 const lanes=$('#lanes'); [[0,70,''],[1,88,'rev'],[2,76,'']].forEach(([k,t,rev])=>{ const items=ALL.filter((_,i)=>i%3===k); const html=items.map(card).join(''); lanes.insertAdjacentHTML('beforeend',`<div class="lane ${rev}" style="--t:${t}s">${html}${html}</div>`); });
 
 /* ---------- main loop ---------- */

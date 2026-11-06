@@ -12,6 +12,10 @@ const root = document.getElementById('l1');
 if (!root) return;
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// The page's own strings (scripts/build-site) and where the assets live, so translated pages in /ja/ etc. work too.
+const T = window.TWICY_L || {}, place = p => (T.place && T.place[p]) || p;
+const ASSETS = new URL('.', document.currentScript.src).href;
+const PAGE_LANG = { ja: 'ja', ko: 'ko', 'zh-Hant-TW': 'tc' }[document.documentElement.lang];
 
 // ---------- math (px.ts) ----------
 const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
@@ -208,6 +212,7 @@ const R2C = 2 * Math.PI * 22, WRC = 2 * Math.PI * 92;
 // ---------- language ----------
 let lang = 'ja', D = DAY.ja, fit = [];
 const pickLang = () => {
+  if (PAGE_LANG) return PAGE_LANG;
   try { const v = localStorage.getItem('twicy-demo-lang'); if (DAY[v]) return v; } catch (e) {}
   for (const l of navigator.languages || [navigator.language || '']) {
     const s = l.toLowerCase();
@@ -236,7 +241,7 @@ const setLang = l => {
     r.na.textContent = s.said; r.na.lang = D.html; r.na.style.fontFamily = D.fam; r.na.style.fontSize = f.na + 'px';
     r.sk.style.width = Math.min(TEXTW, measure(s.said, `500 ${f.nb}px ${D.fam}`)) * .8 + 'px';
     const b = bubs[k];
-    b.bt.textContent = `${s.time} · ${s.place}`;
+    b.bt.textContent = `${s.time} · ${place(s.place)}`;
     b.bs.textContent = s.said; b.bs.lang = D.html; b.bs.style.fontFamily = D.fam;
   });
   const pr = D.said[PRACTICE], pf = fit[PRACTICE];
@@ -249,7 +254,7 @@ const setLang = l => {
   el('sn').style.fontSize = Math.min(13.5, fitSize(pr.said, { w: 400, f: D.fam }, 13.5, 250)) + 'px';
   void pf;
   plans = D.said.map((s, k) => plan(k));
-  try { localStorage.setItem('twicy-demo-lang', l); } catch (e) {}
+  if (!PAGE_LANG) try { localStorage.setItem('twicy-demo-lang', l); } catch (e) {}
   measureBubbles();
 };
 
@@ -633,7 +638,7 @@ let t0 = performance.now(), held = null, running = false, visible = false, hidde
 const clock = () => held != null ? held : ((performance.now() - t0) / 1000) % END;
 const seek = s => { t0 = performance.now() - s * 1000; lastT = s; held = null; if (!running) frame(s); };
 const voices = {};
-const voice = name => (voices[name] ||= Object.assign(new Audio(`assets/voice/${name}.mp3`), { preload: 'auto' }));
+const voice = name => (voices[name] ||= Object.assign(new Audio(`${ASSETS}voice/${name}.mp3`), { preload: 'auto' }));
 const cues = () => [[SP[PRACTICE], lang], [EN_AT, 'en']];
 function tick() {
   if (!running) return;
